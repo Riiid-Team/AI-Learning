@@ -1,25 +1,33 @@
-# Riiid Project
+[![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/Riiid!%20Project.png"Header")](https://www.kaggle.com/c/riiid-test-answer-prediction/overview/description)
+
+# Riiid AIEd Challenge 2020
 
 ## About the Project
-- 
+- Build a better and more equitable model for education in a post-COVID-19 world.
 
 ## Goals
-- 
+- Create algorithms for "Knowledge Tracing," the modeling of student knowledge over time. 
+- Accurately predict how students will perform on future interactions. 
 
 
 ## Deliverables
-- 
+- Submission directly to Kaggle Kernels
+- Submission file must be named submission.csv
+- Final Notebook
+- MVP
+- Slide deck presentation
+- Video presentation
 
 
 ## Data Dictionary
 | Feature | Definition |
 |---------------------------|--------------------------------------------------|
-| Riiid  | |  
+| Riiid  | Riiid Labs, an AI solutions provider delivering creative disruption to the education market |  
  
 
 ## Project Steps
 ### Acquire
-- Data is aquired from Kaggle 
+- Data is acquired from Kaggle 
 - File is a reproducible component for gathering the data.
 
 ### Prepare
@@ -58,8 +66,10 @@ Dani Bojado
 - daniella.bojado@gmail.com 
 
 Samuel Davila
+- samuelrdavila@gmail.com
 
 Yongliang Shi
+- yongliang.michael.shi@gmail.com
 
 Christopher Logan Ortiz
-
+- christopher.logan.ortiz@gmail.com
