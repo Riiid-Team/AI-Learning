@@ -11,12 +11,12 @@
 
 
 ## Deliverables
-- Submission directly to Kaggle Kernels
-- Submission file must be named submission.csv
-- Final Notebook
 - MVP Notebook
+- Final Notebook
 - Slide deck presentation
 - Video presentation
+- Submission directly to Kaggle Kernels
+- Submission file must be named submission.csv
 
 
 ## Data Dictionary
@@ -27,7 +27,8 @@
 
 ## Project Steps
 ### Acquire
-- Data is acquired from Kaggle 
+- Data is acquired from Kaggle.
+- Create an acquire.py file.  
 - File is a reproducible component for gathering the data.
 
 ### Prepare
@@ -61,7 +62,7 @@ All files are reproducible and available for download and use.
 - [x] Read this README.md
 - [ ] Download the aquire.py, prepare.py, and Final_Report.ipynb files
 
-## Contact Me 
+## Contact Us 
 Dani Bojado
 - daniella.bojado@gmail.com 
 
