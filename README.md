@@ -7,7 +7,7 @@
 
 ## Goals
 - Create algorithms for "Knowledge Tracing," the modeling of student knowledge over time. 
-- Accurately predict how students will perform on future interactions. 
+- Accurately predict how students will perform on future interactions.  
 
 
 ## Deliverables
