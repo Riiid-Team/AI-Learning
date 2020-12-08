@@ -22,7 +22,7 @@
 ## Data Dictionary
 | Feature | Definition |
 |---------------------------|--------------------------------------------------|
-| Riiid  | Riiid Labs, an AI solutions provider delivering creative disruption to the education market |  
+| Riiid Labs  | An AI solutions provider delivering creative disruption to the education market. |  
  
 
 ## Project Steps
