@@ -11,7 +11,7 @@
 
 
 ## Deliverables
-- MVP Notebook
+- [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
 - Final Notebook
 - [Slide Presentation](https://www.canva.com/design/DAEPyEi7DMk/XfsD6xPOHLclslweXcg87A/view?utm_content=DAEPyEi7DMk&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
 - Video presentation
