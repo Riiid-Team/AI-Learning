@@ -13,7 +13,7 @@
 ## Deliverables
 - MVP Notebook
 - Final Notebook
-- [Slide deck presentation](https://www.canva.com/design/DAEPyEi7DMk/share/preview?token=FJrvZIfq951PjT4jgwj5yQ&role=EDITOR&utm_content=DAEPyEi7DMk&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
+- [Slide Presentation](https://www.canva.com/design/DAEPyEi7DMk/XfsD6xPOHLclslweXcg87A/view?utm_content=DAEPyEi7DMk&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
 - Video presentation
 - Submission directly to Kaggle Kernels
 - Submission file must be named submission.csv
