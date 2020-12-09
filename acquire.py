@@ -40,7 +40,7 @@ def get_riiid_data():
         }
         
         lectures_data_types_dict = {
-        'lecture_id' : np.int16,
+        'lecture_id' : np.int16
         'tag' : np.int8,
         'part' : np.int8
         }
@@ -53,7 +53,7 @@ def get_riiid_data():
         
         # Acquire data
         df_train = pd.read_csv('train.csv', dtype=train_data_types_dict)
-        df_lectures = pd.read_csv('lectures.csv', dtype=lectures_data_types_dict)
+        df_lectures = pd.read_csv('lectures.git scsv', dtype=lectures_data_types_dict)
         df_questions = pd.read_csv('questions.csv', dtype=questions_data_types_dict)
         
         # Left join df_train and df_lectures using `content_id` as the primary key.
