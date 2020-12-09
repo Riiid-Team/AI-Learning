@@ -40,7 +40,7 @@ def get_riiid_data():
         }
         
         lectures_data_types_dict = {
-        'lecture_id' : np.int16
+        'lecture_id' : np.int16,
         'tag' : np.int8,
         'part' : np.int8
         }
@@ -53,7 +53,13 @@ def get_riiid_data():
         
         # Acquire data
         df_train = pd.read_csv('train.csv', dtype=train_data_types_dict)
-        df_lectures = pd.read_csv('lectures.git scsv', dtype=lectures_data_types_dict)
+        
+        # Randomly select half of the users
+        all_users = df_train.user_id.value_counts().sort_index().index.tolist()
+        half_of_users_index = int(len(all_users) * .5)
+        df_train = df_train.loc[df_train.user_id.isin(df_train.user_id.sample(half_of_users_index, random_state=1))]
+        
+        df_lectures = pd.read_csv('lectures.csv', dtype=lectures_data_types_dict)
         df_questions = pd.read_csv('questions.csv', dtype=questions_data_types_dict)
         
         # Left join df_train and df_lectures using `content_id` as the primary key.
@@ -61,14 +67,9 @@ def get_riiid_data():
         
         # Left join df_merged and df_questions using `content_id` as the primary key.
         df = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
-        
-        # Randomly select half of the users
-        all_users = df_train.user_id.value_counts().sort_index().index.tolist()
-        half_of_users_index = int(len(all_users) * .5)
-        df_filtered = df.loc[df.user_id.isin(df.user_id.sample(half_of_users_index, random_state=1))]
-        
+    
         # Fill in missing values with 0.
-        df_filtered = df_filtered.fillna(0)
+        df_filtered = df.fillna(0)
         
         # Change the data types numeric columns.
         df_filtered.lecture_id = df_filtered.lecture_id.astype(np.int16)
