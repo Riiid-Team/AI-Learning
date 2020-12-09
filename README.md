@@ -15,9 +15,13 @@
 - Final Notebook
 - [Slide Presentation](https://www.canva.com/design/DAEPyEi7DMk/XfsD6xPOHLclslweXcg87A/view?utm_content=DAEPyEi7DMk&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
 - Video presentation
-- [Trello Board](https://trello.com/b/HK21qlYW/riiid-project) 
 - Submission directly to Kaggle Kernels
 - Submission file must be named submission.csv
+
+## Project Management 
+- [Trello Board](https://trello.com/b/HK21qlYW/riiid-project) 
+- [Capstone Standup](https://docs.google.com/document/d/1tSexQKQZE7XicJyN401ZG8SlkKxIRokE44qmFS5kDZI/edit?usp=sharing)
+- [Knowledge Share](https://docs.google.com/document/d/1W8FVh89gN6bMn85uHgqLIz50elTtU2H9-R7jwpOUBRw/edit?usp=sharing)
 
 
 ## Data Dictionary
