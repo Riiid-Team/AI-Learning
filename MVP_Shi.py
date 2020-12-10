@@ -86,3 +86,14 @@ def stats_task_container_id(df):
                           'skew_task_accuracy']
 
     return task_stats
+
+def merge_with_overall_stats(df, content_stats, task_stats):
+    '''
+    To merger the train/validate/test with the new features generated from the train. 
+    '''
+    df = df.merge(content_stats[['mean_content_accuracy']], how='left', on='content_id')
+    df.drop(columns=['content_id', 'content_type_id'], inplace=True)
+    df = df.merge(task_stats[['mean_task_accuracy']], how='left', on='task_container_id')
+    df.drop(columns='task_container_id')
+    return df
+
