@@ -44,7 +44,7 @@ def get_riiid_data():
         # Fill missing values with 0.
         df_filtered = df.fillna(0)
         
-        # Change the data types numeric columns.
+        # Change the data types of numeric columns.
         df_filtered.lecture_id = df_filtered.lecture_id.astype(np.int16)
         df_filtered.tag = df_filtered.tag.astype(np.int8)
         df_filtered.part_x = df_filtered.part_x.astype(np.int8)
@@ -79,7 +79,6 @@ def datatype_converter():
     '''
     This function returns a dictionary of column names and data types to convert.
     '''
-    
     train_data_types_dict = {
     'timestamp': np.int64,
     'user_id': np.int32,
@@ -108,8 +107,8 @@ def datatype_converter():
 
 def sampled_train():
     '''
-    This function selects a random sample of 50_000 users from the `train.csv` dataset.
-    Returns a dataframe of 50_000 users that have more than 10 rows of data.
+    This function selects a random sample of 100_000 users from the `train.csv` dataset.
+    Returns a dataframe of 100_000 users that have more than 10 rows of data.
     
     
     Parameters
@@ -118,7 +117,7 @@ def sampled_train():
     
     Returns
     -------
-    data : pandas.core.frame.DataFrame
+    sampled_data : pandas.core.frame.DataFrame
         A pandas dataframe of 100,000 randomly selected
         users.
     '''
