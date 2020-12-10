@@ -50,3 +50,39 @@ def sample_split(df):
             train = pd.concat([train, df_train])
             test = pd.concat([test, df_test])
     return train, test
+
+def stats_content_id(df):
+    '''
+    To compute the students' historic performance regarding the content
+    '''
+    content_stats = df.groupby('content_id').answered_correctly.agg(['mean', 
+                                                                     'count', 
+                                                                     'std', 
+                                                                     'median', 
+                                                                     'skew'])
+
+    content_stats.columns = ['mean_content_accuracy', 
+                             'question_content_asked', 
+                             'std_content_accuracy', 
+                             'median_content_accuracy', 
+                             'skew_content_accuracy']
+
+    return content_stats
+
+def stats_task_container_id(df):
+    '''
+    To compute the students' historic performance on tasks
+    '''
+    task_stats = df.groupby('task_container_id').answered_correctly.agg(['mean', 
+                                                                         'count', 
+                                                                         'std', 
+                                                                         'median', 
+                                                                         'skew'])
+
+    task_stats.columns = ['mean_task_accuracy', 
+                          'question_task_asked', 
+                          'std_task_accuracy', 
+                          'median_task_accuracy', 
+                          'skew_task_accuracy']
+
+    return task_stats
