@@ -19,7 +19,7 @@
 - Submission file must be named submission.csv
 
 ## Project Management 
-- [Trello Board](https://trello.com/b/HK21qlYW/riiid-project) 
+- [Trello Board](https://trello.com/b/HK21qlYW) 
 - [Capstone Standup](https://docs.google.com/document/d/1tSexQKQZE7XicJyN401ZG8SlkKxIRokE44qmFS5kDZI/edit?usp=sharing)
 - [Knowledge Share](https://docs.google.com/document/d/1W8FVh89gN6bMn85uHgqLIz50elTtU2H9-R7jwpOUBRw/edit?usp=sharing)
 
@@ -68,7 +68,7 @@ All files are reproducible and available for download and use.
 - [ ] Download the aquire.py, prepare.py, and Final_Report.ipynb files
 
 ## Contact Us 
-Dani Bojado
+Daniella Bojado
 - daniella.bojado@gmail.com 
 
 Samuel Davila
