@@ -68,7 +68,7 @@ All files are reproducible and available for download and use.
 - [ ] Download the aquire.py, prepare.py, and Final_Report.ipynb files
 
 ## Contact Us 
-Dani Bojado
+Daniella Bojado
 - daniella.bojado@gmail.com 
 
 Samuel Davila
