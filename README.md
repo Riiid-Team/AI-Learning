@@ -32,7 +32,7 @@
 
 ## Project Steps
 ### Acquire
-- Data is acquired from Kaggle.
+- Data is acquired from Kaggle - [Riiid Answer Correctness Prediction](https://www.kaggle.com/c/riiid-test-answer-prediction/data).
 - Create an acquire.py file.  
 - File is a reproducible component for gathering the data.
 
