@@ -52,12 +52,10 @@ def get_riiid_data():
         }
         
         # Acquire data
-        df_train = pd.read_csv('train.csv', dtype=train_data_types_dict)
+        df_train = pd.read_csv('train.csv', dtype=train_data_types_dict, nrows=40e6)
         
-        # Randomly select half of the users
-        all_users = df_train.user_id.value_counts().sort_index().index.tolist()
-        half_of_users_index = int(len(all_users) * .5)
-        df_train = df_train.loc[df_train.user_id.isin(df_train.user_id.sample(half_of_users_index, random_state=1))]
+        # Remove the last user missing data.
+        df_train = df_train.loc[df_train.user_id != df_train.user_id.max()]
         
         df_lectures = pd.read_csv('lectures.csv', dtype=lectures_data_types_dict)
         df_questions = pd.read_csv('questions.csv', dtype=questions_data_types_dict)
