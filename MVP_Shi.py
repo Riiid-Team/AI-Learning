@@ -127,8 +127,8 @@ def merge_with_stats(df_train, df_val_or_test):
     return train, val_or_test
 
 def drop_columns(df):
-    cols = ['user_id', 'row_id', 'timestamp', 'content_id', 'content_type_id', 'task_container_id', 
-            'user_answer', 'prior_question_elapsed_time', 'prior_question_had_explanation']
+    cols = ['user_id', 'row_id', 'timestamp', 'content_id', 'content_type_id', 
+            'task_container_id', 'user_answer', 'prior_question_elapsed_time']
     df.drop(columns=cols, inplace=True)
     return df
 
@@ -156,3 +156,8 @@ def scale(train, test, columns_to_scale):
     test.drop(columns=['mean_timestamp_accuracy', 'mean_priortime_accuracy', 'user_lectures_running_total', 'avg_user_q_time'], inplace=True)
     
     return scaler, train, test
+
+def boolean_to_num(df):
+    m = df.prior_question_had_explanation.apply(lambda i: 1 if i == True else 0)
+    df.prior_question_had_explanation = m
+    return df
