@@ -26,7 +26,7 @@ def sam_train_features(df):
     
     for x in range(0,5):
     # set to loop number of times == largest count of questions in bundle
-        df['last_q_time'] = np.where((df.last_q_time ==  0) & (df.prior_question_elapsed_time.isnull() != True), df.last_q_time.shift(1), df.last_q_time)
+        df['last_q_time'] = np.where((df.last_q_time ==  0) & (df.prior_question_elapsed_time >= 0), df.last_q_time.shift(1), df.last_q_time)
     
     # avg time each user takes a question
     avg_q_time_user = pd.DataFrame(df.groupby('user_id').mean().round()['last_q_time'])
