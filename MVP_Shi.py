@@ -28,6 +28,11 @@ def handle_null(df):
     df.prior_question_elapsed_time.fillna(0, inplace = True)
     return df
 
+def handle_inf(df):
+    m = df.prior_question_elapsed_time.apply(lambda i: 0 if i == np.inf else i)
+    df.prior_question_elapsed_time = m
+    return df
+
 def drop_lecture_rows(df):
     '''
     Drop the lecture rows in the dataframe
@@ -105,7 +110,8 @@ def stats_priortime(df):
 
     return priortime_stats
 
-def merge_with_stats(df_train, df_val_or_test):
+
+def merge_with_stats_train(df_train):
     '''
     To merger the train/validate/test with the new features generated from the train. 
     '''   
@@ -119,21 +125,33 @@ def merge_with_stats(df_train, df_val_or_test):
     train = train.merge(timestamp_stats[['mean_timestamp_accuracy']], how="left", on="user_id")
     train = train.merge(priortime_stats[['mean_priortime_accuracy']], how="left", on="user_id")
 
+    return train
+
+
+def merge_with_stats_valortest(df_train, df_val_or_test):
+    '''
+    To merger the train/validate/test with the new features generated from the train. 
+    '''   
+    content_stats = stats_content_id(df_train)
+    task_stats = stats_task_container_id(df_train)
+    timestamp_stats = stats_timestamp(df_train)
+    priortime_stats = stats_priortime(df_train)
+
     val_or_test = df_val_or_test.merge(content_stats[['mean_content_accuracy']], how='left', on='content_id')
     val_or_test = val_or_test.merge(task_stats[['mean_task_accuracy']], how='left', on='task_container_id')
     val_or_test = val_or_test.merge(timestamp_stats[['mean_timestamp_accuracy']], how="left", on="user_id")
     val_or_test = val_or_test.merge(priortime_stats[['mean_priortime_accuracy']], how="left", on="user_id")
 
-    return train, val_or_test
+    return val_or_test
 
 def drop_columns_train(df):
-    cols = ['user_id', 'row_id', 'timestamp', 'content_id', 'content_type_id', 
+    cols = ['user_id', 'timestamp', 'content_id', 'content_type_id', 
             'task_container_id', 'user_answer', 'last_q_time', 'prior_question_elapsed_time']
     df.drop(columns=cols, inplace=True)
     return df
 
 def drop_columns_valortest(df):
-    cols = ['user_id', 'row_id', 'timestamp', 'content_id', 'content_type_id', 
+    cols = ['user_id', 'timestamp', 'content_id', 'content_type_id', 
             'task_container_id', 'user_answer', 'prior_question_elapsed_time']
     df.drop(columns=cols, inplace=True)
     return df
@@ -142,7 +160,7 @@ def fill_nulls(df):
     df.fillna(0.5, inplace=True)
     return df
 
-def scale(train, test, columns_to_scale):
+def scale(train, validate, test, columns_to_scale):
     
     new_column_names = [c + '_scaled' for c in columns_to_scale]
     
@@ -153,15 +171,22 @@ def scale(train, test, columns_to_scale):
         train,
         pd.DataFrame(scaler.transform(train[columns_to_scale]), columns=new_column_names, index=train.index),
     ], axis=1)
+
+    validate = pd.concat([
+        validate,
+        pd.DataFrame(scaler.transform(validate[columns_to_scale]), columns=new_column_names, index=validate.index),
+    ], axis=1)
+
     test = pd.concat([
         test,
         pd.DataFrame(scaler.transform(test[columns_to_scale]), columns=new_column_names, index=test.index),
     ], axis=1)
     
     train.drop(columns=['mean_timestamp_accuracy', 'mean_priortime_accuracy', 'user_lectures_running_total', 'avg_user_q_time'], inplace=True)
+    validate.drop(columns=['mean_timestamp_accuracy', 'mean_priortime_accuracy', 'user_lectures_running_total', 'avg_user_q_time'], inplace=True)
     test.drop(columns=['mean_timestamp_accuracy', 'mean_priortime_accuracy', 'user_lectures_running_total', 'avg_user_q_time'], inplace=True)
     
-    return scaler, train, test
+    return scaler, train, validate, test
 
 def boolean_to_num(df):
     m = df.prior_question_had_explanation.apply(lambda i: 1 if i == True else 0)
