@@ -39,19 +39,16 @@ def get_riiid_data():
         df_merged = df_train.merge(df_lectures, left_on='content_id', right_on='lecture_id', how='left')
         
         # Left join df_merged and df_questions using `content_id` as the primary key.
-        df = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
-    
-        # Fill missing values with 0.
-        df_filtered = df.fillna(0)
+        df_filtered = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
         
         # Change the data types of numeric columns.
-        df_filtered.lecture_id = df_filtered.lecture_id.astype(np.int16)
-        df_filtered.tag = df_filtered.tag.astype(np.int8)
-        df_filtered.part_x = df_filtered.part_x.astype(np.int8)
-        df_filtered.part_y = df_filtered.part_y.astype(np.int8)
-        df_filtered.question_id = df_filtered.question_id.astype(np.int16)
-        df_filtered.bundle_id = df_filtered.bundle_id.astype(np.int16)
-        df_filtered.lecture_id = df_filtered.lecture_id.astype(np.int32)
+        df_filtered.lecture_id = df_filtered.lecture_id.astype('Int16')
+        df_filtered.tag = df_filtered.tag.astype('Int8')
+        df_filtered.part_x = df_filtered.part_x.astype('Int8')
+        df_filtered.part_y = df_filtered.part_y.astype('Int8')
+        df_filtered.question_id = df_filtered.question_id.astype('Int16')
+        df_filtered.bundle_id = df_filtered.bundle_id.astype('Int16')
+        df_filtered.lecture_id = df_filtered.lecture_id.astype('Int32')
 
         # Prefix part names with the originating dataframe name.
         df_filtered.rename(columns={'part_x': 'lecture_part',
@@ -71,7 +68,7 @@ def sampled_users(df):
     returns a random sample of 100_000 user_ids.
     '''
     user_ids = df['user_id'].value_counts()[df['user_id'].value_counts() > 10].index.to_list()
-    sampled_ids = random.sample(user_ids, 100_000)
+    sampled_ids = random.sample(user_ids, 2_000)
     return sampled_ids
 
 
