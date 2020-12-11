@@ -68,7 +68,7 @@ def sampled_users(df):
     returns a random sample of 100_000 user_ids.
     '''
     user_ids = df['user_id'].value_counts()[df['user_id'].value_counts() > 10].index.to_list()
-    sampled_ids = random.sample(user_ids, 2_000)
+    sampled_ids = random.sample(user_ids, 100_000)
     return sampled_ids
 
 
