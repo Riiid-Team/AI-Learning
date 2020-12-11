@@ -39,7 +39,7 @@ def get_riiid_data():
         df_merged = df_train.merge(df_lectures, left_on='content_id', right_on='lecture_id', how='left')
         
         # Left join df_merged and df_questions using `content_id` as the primary key.
-        df = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
+        df_filtered = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
         
         # Change the data types of numeric columns.
         df_filtered.lecture_id = df_filtered.lecture_id.astype(np.int16)
