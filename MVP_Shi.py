@@ -126,7 +126,13 @@ def merge_with_stats(df_train, df_val_or_test):
 
     return train, val_or_test
 
-def drop_columns(df):
+def drop_columns_train(df):
+    cols = ['user_id', 'row_id', 'timestamp', 'content_id', 'content_type_id', 
+            'task_container_id', 'user_answer', 'last_q_time', 'prior_question_elapsed_time']
+    df.drop(columns=cols, inplace=True)
+    return df
+
+def drop_columns_valortest(df):
     cols = ['user_id', 'row_id', 'timestamp', 'content_id', 'content_type_id', 
             'task_container_id', 'user_answer', 'prior_question_elapsed_time']
     df.drop(columns=cols, inplace=True)
