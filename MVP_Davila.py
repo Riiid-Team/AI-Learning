@@ -35,6 +35,8 @@ def sam_train_features(df):
     
     df = df.merge(avg_q_time_user, how='left', left_on='user_id', right_on='user_id')
     
+    df.drop(columns='last_q_time', inplace=True)
+
     return df
 
 def sam_valtest_features(df, val_or_test):
