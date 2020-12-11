@@ -4,7 +4,7 @@ import numpy as np
 
 from sklearn.metric import confusion_matrix, classification_report
 
-def data_split():
+def data_split(df):
     '''
     
     '''
