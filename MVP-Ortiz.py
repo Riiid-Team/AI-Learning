@@ -33,4 +33,4 @@ def data_split(df):
         validate = pd.concat([validate, df_validate])
         test = pd.concat([test, df_test])
         
-        return train, validate, test
+    return train, validate, test
