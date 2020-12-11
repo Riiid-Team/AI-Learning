@@ -34,8 +34,6 @@ def sam_train_features(df):
     avg_q_time_user.columns = ['avg_user_q_time']
     
     df = df.merge(avg_q_time_user, how='left', left_on='user_id', right_on='user_id')
-    
-    df.drop(columns='last_q_time', inplace=True)
 
     return df
 
