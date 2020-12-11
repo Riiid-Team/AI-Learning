@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.metrics import plot_roc_curve, plot_precision_recall_curve
+from sklean.model_selection import KFold, cross_vaL_score
 
 def data_split(df):
     '''
@@ -26,9 +27,9 @@ def data_split(df):
     train, validate, test : pandas.core.frame.DataFrame
     (Data is split on an index level per user)
 
-        Train : 80% of each users values.
-        Validate : 10% of each users values.
-        Test : 10 of each users values.
+        Train : 0% to 80% of each users values.
+        Validate : 80% to 90% of each users values.
+        Test : 90% to 100% of each users values.
     '''
     # Create seperate dataframes to store train, validate, and test data
     train = pd.DataFrame()
@@ -88,7 +89,7 @@ def auc_curve_plot(clf, X, y):
 
     X : X_validate or X_test
 
-    y : y_validate or  y_test
+    y : y_validate or y_test
 
     Returns
     -------
@@ -100,8 +101,42 @@ def auc_curve_plot(clf, X, y):
     # Create two subplots
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 8))
 
-    # plot the roc curve
+    # Plot the roc curve
     plot_roc_curve(clf, X, y, ax=ax1)
 
-    # plot the precision recall curve
+    # Plot the precision recall curve
     plot_precision_recall_curve(clf, X, y, ax=ax2)
+
+
+def cross_validation(clf, X, y):
+    '''
+    This function accepts a classification model, X_set, y_set
+    and returns cross validation metrics using ShuffleKFold
+
+    This function is used to evaluate generalization performance of our models
+
+    Parameters
+    ----------
+    classifier : Sklearn classification instance
+    sklearn.ensemble, sklearn.linear_model, sklearn.tree, sklearn.neighbors, etc.
+        A classification object that will be fit on X_train and y_train.
+
+    X :  pandas DataFrame
+        Accepts X_train dataset
+
+    y : pandas DataFrame
+        Accepts y_train dataset
+
+    Returns
+    -------
+    
+    
+    '''
+    # Create a KFold object to shuffle the data and set a random seed.
+    kfold = KFold(n_splits=5, shuffle=True, random_state=123)
+
+    # Calculate cross-validation values for each k-splits
+    cv_scores = cross_vaL_score(clf, X, y, cv=kfold)
+
+    # Return the cv
+    return cv_scores
