@@ -1,5 +1,6 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
+from sklearn.feature_selection import SelectKBest, f_regression
 
 def rfe_ranker(train):
     """
@@ -45,3 +46,15 @@ def rfe_ranker(train):
 
     # return df sorted by rank
     return rfe_ranks_df.sort_values('Rank')
+
+
+def KBest_ranker(X, y, n):
+   """
+   Returns the top n selected features based on the SelectKBest calss
+   Parameters: predictors(X) in df, target(y) in df, the number of features to select(n)
+   """
+   f_selector = SelectKBest(f_regression, k=n)
+   f_selector = f_selector.fit(X, y)
+   f_support = f_selector.get_support()
+   f_feature = X.iloc[:, f_support].columns.tolist()
+   return f_feature
