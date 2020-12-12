@@ -198,7 +198,7 @@ def sam_valtest_features(df, val_or_test):
     return val_or_test
 
 def drop_columns_train(df):
-    cols = ['user_id', 'content_id', 'content_type_id', 
+    cols = ['user_id', 'content_id', 'content_type_id', 'timestamp',
             'task_container_id', 'user_answer', 'prior_question_elapsed_time']
     df.drop(columns=cols, inplace=True)
     return df
@@ -308,14 +308,14 @@ def prep_riiid(df_train, df_validate, df_test):
     validate.prior_question_had_explanation = validate.prior_question_had_explanation.shift(-1)
     test.prior_question_had_explanation = test.prior_question_had_explanation.shift(-1)
 
-    train.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
-    validate.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
-    test.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
+    train = train.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
+    validate = validate.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
+    test = test.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
 
     # convert boolean to num
-    #train = boolean_to_num(train)
-    #validate = boolean_to_num(validate)
-    #test = boolean_to_num(test)
+    train = boolean_to_num(train)
+    validate = boolean_to_num(validate)
+    test = boolean_to_num(test)
     
     # scale columns
     columns_to_scale = ['mean_timestamp_accuracy', 'mean_priortime_accuracy',
