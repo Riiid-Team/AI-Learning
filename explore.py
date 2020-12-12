@@ -58,3 +58,17 @@ def KBest_ranker(X, y, n):
    f_support = f_selector.get_support()
    f_feature = X.iloc[:, f_support].columns.tolist()
    return f_feature
+
+def feature_over_time(feature, train, agg_method):
+    feature_on_time = pd.DataFrame(train.groupby("timestamp")[feature].agg([agg_method]))
+    feature_on_time.reset_index(inplace=True)
+    feature_on_time.rename(columns={agg_method:feature}, inplace=True)
+    
+    feature_on_time['seconds'] = (feature_on_time.timestamp/1000).round(0)
+    feature_on_time['minutes'] = (feature_on_time.timestamp/(1000*60)).round(0)
+    feature_on_time['hours'] = (feature_on_time.timestamp/(1000*60*60)).round(0)
+    feature_on_time['days'] = (feature_on_time.timestamp/(1000*60*60*24)).round(0)
+    feature_on_time['months'] = (feature_on_time.timestamp/(1000*60*60*24*30)).round(0)
+    feature_on_time['years'] = (feature_on_time.timestamp/(1000*60*60*24*30*12)).round(0)
+    
+    return feature_on_time
