@@ -154,21 +154,23 @@ def sam_train_features(df):
     # time taken to answer previous question
     lastq = pd.DataFrame(df.timestamp.diff())
 
-    lastq.columns = ['last_q_time']
+    lastq.columns = ['q_time']
 
     lastq.fillna(0)
 
     df = pd.concat([df, lastq], axis=1)
     
-    df['last_q_time'] = np.where((df.last_q_time.isnull()), 0, df.last_q_time)
-    df['last_q_time'] = np.where((df.last_q_time < 0), 0, df.last_q_time)
+    df.q_time = df.q_time.shift(-1)
+
+    df['q_time'] = np.where((df.q_time.isnull()), 0, df.q_time)
+    df['q_time'] = np.where((df.q_time < 0), 0, df.q_time)
     
-    for x in range(0,5):
+    for x in range(0,10):
     # set to loop number of times == largest count of questions in bundle
-        df['last_q_time'] = np.where((df.last_q_time ==  0) & (df.prior_question_elapsed_time >= 0), df.last_q_time.shift(1), df.last_q_time)
+        df['q_time'] = np.where((df.q_time ==  0) & (df.prior_question_elapsed_time >= 0), df.q_time.shift(1), df.q_time)
     
     # avg time each user takes a question
-    avg_q_time_user = pd.DataFrame(df.groupby('user_id').mean().round()['last_q_time'])
+    avg_q_time_user = pd.DataFrame(df.groupby('user_id').mean().round()['q_time'])
     
     avg_q_time_user.columns = ['avg_user_q_time']
     
@@ -187,7 +189,7 @@ def sam_valtest_features(df, val_or_test):
     val_or_test['user_lectures_running_total'] = val_or_test.groupby(by=['user_id'])['content_type_id'].transform(lambda x: x.cumsum())
     
     # avg time each user takes a question
-    avg_q_time_user = pd.DataFrame(df.groupby('user_id').mean().round()['last_q_time'])
+    avg_q_time_user = pd.DataFrame(df.groupby('user_id').mean().round()['q_time'])
     
     avg_q_time_user.columns = ['avg_user_q_time']
     
@@ -196,8 +198,8 @@ def sam_valtest_features(df, val_or_test):
     return val_or_test
 
 def drop_columns_train(df):
-    cols = ['user_id', 'timestamp', 'content_id', 'content_type_id', 
-            'task_container_id', 'user_answer', 'last_q_time', 'prior_question_elapsed_time']
+    cols = ['user_id', 'content_id', 'content_type_id', 
+            'task_container_id', 'user_answer', 'prior_question_elapsed_time']
     df.drop(columns=cols, inplace=True)
     return df
 
@@ -248,8 +250,8 @@ def scale(train, validate, test, columns_to_scale):
     return scaler, train, validate, test
 
 def boolean_to_num(df):
-    m = df.prior_question_had_explanation.apply(lambda i: 1 if i == True else 0)
-    df.prior_question_had_explanation = m
+    m = df.question_had_explanation.apply(lambda i: 1 if i == True else 0)
+    df.question_had_explanation = m
     return df
 
 
@@ -300,11 +302,20 @@ def prep_riiid(df_train, df_validate, df_test):
     # fill nulls created from merging
     validate = fill_nulls(validate)
     test = fill_nulls(test)
-    
+
+    # shift prior question had explanation to current question
+    train.prior_question_had_explanation = train.prior_question_had_explanation.shift(-1)
+    validate.prior_question_had_explanation = validate.prior_question_had_explanation.shift(-1)
+    test.prior_question_had_explanation = test.prior_question_had_explanation.shift(-1)
+
+    train.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
+    validate.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
+    test.rename(columns={"prior_question_had_explanation": "question_had_explanation"})
+
     # convert boolean to num
-    train = boolean_to_num(train)
-    validate = boolean_to_num(validate)
-    test = boolean_to_num(test)
+    #train = boolean_to_num(train)
+    #validate = boolean_to_num(validate)
+    #test = boolean_to_num(test)
     
     # scale columns
     columns_to_scale = ['mean_timestamp_accuracy', 'mean_priortime_accuracy',
