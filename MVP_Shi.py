@@ -3,8 +3,10 @@ warnings.filterwarnings("ignore")
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import plot_roc_curve, roc_auc_score
 
 def sample_train(df, n):
     '''
@@ -192,3 +194,82 @@ def boolean_to_num(df):
     m = df.prior_question_had_explanation.apply(lambda i: 1 if i == True else 0)
     df.prior_question_had_explanation = m
     return df
+
+def auc_curve_plot1(clf, algo_name, X, y):
+    '''
+    This function accepts y_validate or y_test and predict_proba or decision_function classifier attribute
+    Example:
+    ---------
+    auc_mertic(actual_outcome=y_validate, decision_func=svc.decision_function(X_validate))
+    Returns a plot of the ROC curve.
+    Parameters
+    ----------
+    clf : The classification model fit with X_train, y_train
+    X : X_validate or X_test
+    y : y_validate or y_test
+    Returns
+    -------
+    A visualization of the roc for a given classification model.
+    '''
+    # Set visualization defaults
+    sns.set_context('talk')
+    fig, ax = plt.subplots(figsize=(8, 8))
+
+    # Plot the roc curve
+    plot_roc_curve(clf, X, y, ax=ax)
+    ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r', label='Chance', alpha=.8)
+    ax.set_title(f"ROC curve for {algo_name}")
+    
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+def auc_score_proba(clf, X, y):
+    '''
+    This function accepts a classification model that can estimate probability, X_set and y_set
+    and returns a dataframe of predicted probabilty on a binary class
+    and also returns a auc score
+    
+    Parameter
+    ----------
+    clf: the classification algorithm after fitting with X_train, y_train
+    X: X_train, X_validate and X_test
+    y: y_train, y_validate and y_test
+    
+    Returns
+    ----------
+    1. A dataframe containing the probability estimates
+    2. AUC score
+    '''
+    y_proba = clf.predict_proba(X)
+    y_proba = pd.DataFrame(y_proba, columns=['p_0', 'p_1'])
+    score = roc_auc_score(y, y_proba['p_1'])
+    return y_proba, score
+
+def model_multiple_algos(names, classifiers, X_train, y_train, X_validate, y_validate, X_test, y_test):   
+    
+    metrics = pd.DataFrame()
+
+    for name, clf in zip(names, classifiers):
+        
+        # Set up a progress indicator        
+        print(f"Currently runnig on model {name}")
+        
+        # Working on thr train dataset        
+        clf = clf.fit(X_train, y_train)
+        y_pred_proba = clf.predict_proba(X_train)
+        y_proba, score = auc_score_proba(clf, X_train, y_train)
+        d = {"Algo": name, "dataset": "train", "AUC score": score}
+        metrics = metrics.append(d, ignore_index=True)
+        
+        # Working on the validate dataset
+        y_proba, score = auc_score_proba(clf, X_validate, y_validate)
+        d = {"Algo": name, "dataset": "validate", "AUC score": score}
+        metrics = metrics.append(d, ignore_index=True)
+             
+        # Working on the test dataset
+        y_proba, score = auc_score_proba(clf, X_test, y_test)
+        d = {"Algo": name, "dataset": "test", "AUC score": score}
+        metrics = metrics.append(d, ignore_index=True)
+             
+    return metrics
