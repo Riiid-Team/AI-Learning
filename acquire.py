@@ -22,16 +22,18 @@ def get_riiid_data():
     
     Returns
     -------
-    df_filtered : pandas.core.frame.DataFrame
+    df_data : pandas.core.frame.DataFrame
+        The merged dataset of `train.csv`, `lectures.csv`, and  `questions.csv`
     '''
+
     if os.path.isfile('riiid_data.csv'):
-        return pd.read_csv('riiid_data.csv', index_col=False)
+        return pd.read_csv('riiid_data.csv')
     else:
         # Dictionaries to cast column dtypes.
-        _, lecture_dtypes, question_dtypes = datatype_converter()
+        train_dtypes, lecture_dtypes, question_dtypes = datatype_converter()
         
         # Acquire data
-        df_train = sampled_train()
+        df_train = pd.read_csv('train.csv', dtype=train_dtypes, usecols=[1,2,3,4,5,6,7,8,9])
         df_lectures = pd.read_csv('lectures.csv', dtype=lecture_dtypes)
         df_questions = pd.read_csv('questions.csv', dtype=question_dtypes)
         
@@ -39,37 +41,27 @@ def get_riiid_data():
         df_merged = df_train.merge(df_lectures, left_on='content_id', right_on='lecture_id', how='left')
         
         # Left join df_merged and df_questions using `content_id` as the primary key.
-        df_filtered = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
+        df_data = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
         
         # Change the data types of numeric columns.
-        df_filtered.lecture_id = df_filtered.lecture_id.astype('Int16')
-        df_filtered.tag = df_filtered.tag.astype('Int8')
-        df_filtered.part_x = df_filtered.part_x.astype('Int8')
-        df_filtered.part_y = df_filtered.part_y.astype('Int8')
-        df_filtered.question_id = df_filtered.question_id.astype('Int16')
-        df_filtered.bundle_id = df_filtered.bundle_id.astype('Int16')
-        df_filtered.lecture_id = df_filtered.lecture_id.astype('Int32')
+        df_data.lecture_id = df_data.lecture_id.astype('Int16')
+        df_data.tag = df_data.tag.astype('Int8')
+        df_data.part_x = df_data.part_x.astype('Int8')
+        df_data.part_y = df_data.part_y.astype('Int8')
+        df_data.question_id = df_data.question_id.astype('Int16')
+        df_data.bundle_id = df_data.bundle_id.astype('Int16')
+        df_data.lecture_id = df_data.lecture_id.astype('Int32')
 
         # Prefix part names with the originating dataframe name.
-        df_filtered.rename(columns={'part_x': 'lecture_part',
+        df_data.rename(columns={'part_x': 'lecture_part',
                                     'part_y': 'question_part'},
                            inplace=True)
         
-        # Save the merged.
-        df_filtered.to_csv('riiid_data.csv', index=False)
+        # Cache the merged dataframe.
+        df_data.to_csv('riiid_data.csv', index=False)
 
         # Return the dataset.
-        return df_filtered
-
-
-def sampled_users(df):
-    '''
-    This function accepts data from `train.csv` and
-    returns a random sample of 100_000 user_ids.
-    '''
-    user_ids = df['user_id'].value_counts()[df['user_id'].value_counts() > 10].index.to_list()
-    sampled_ids = random.sample(user_ids, 100_000)
-    return sampled_ids
+        return df_data
 
 
 def datatype_converter():
@@ -102,10 +94,11 @@ def datatype_converter():
     return train_data_types_dict, lectures_data_types_dict, questions_data_types_dict
 
 
-def sampled_train():
+###################### Acquire SAMPLED Riiid Data ########################
+def sampled_riiid_data():
     '''
     This function selects a random sample of 100_000 users from the `train.csv` dataset.
-    Returns a dataframe of 100_000 users that have more than 10 rows of data.
+    Returns a dataframe of with data from 100_000 users.
     
     
     Parameters
@@ -115,8 +108,7 @@ def sampled_train():
     Returns
     -------
     sampled_data : pandas.core.frame.DataFrame
-        A pandas dataframe of 100,000 randomly selected
-        users.
+        A pandas dataframe of 100,000 randomly selected users.
     '''
     train_dtypes, _, _ = datatype_converter()
     
@@ -138,3 +130,13 @@ def sampled_train():
     
         # Return the dataframe
         return sampled_data
+
+
+def sampled_users(df):
+    '''
+    This function accepts data from `train.csv` and
+    returns a random sample of 100_000 user_ids.
+    '''
+    user_ids = list(df['user_id'].unique())
+    sampled_ids = random.sample(user_ids, 100_000)
+    return sampled_ids
