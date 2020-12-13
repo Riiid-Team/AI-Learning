@@ -142,7 +142,7 @@ Placeholder
 
 ## Project Steps
 ### Acquire
-Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-prediction/data). The data is stored in three separate files: lectures.csv, questions.csv, and train.csv. The primary dataset is train.csv, which has approximately 100 million user interactions with about 390,000 users. We used a random sample of 100K users for our analysis. The original 10 features describe the type of question, the time it took to answer, and whether the user’s response was correct. 
+Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-prediction/data). The data is stored in three separate files: lectures.csv, questions.csv, and train.csv. The primary dataset is train.csv, which has 100+ million user interactions from 390,000+ users. We used a random sample of 100K users for our analysis. The original 10 features describe the type of question, the time it took to answer, and whether the user’s response was correct. 
 
 > Functions used to acquire the data are stored in the acquire.py module.
 
@@ -157,6 +157,9 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 - Created new features using descriptive statistics for content, task, timestamp, and whether a question had an explanation. 
 - Scaled timestamp from milliseconds to minutes, hours, days, months, and years to look at trends overtime.
 - Refer to the feature engineering data dictionary for more information.
+
+**Preprocessing**
+- Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
 
 > Functions used to prepare the data are stored in the prepare.py module.
 
@@ -182,7 +185,7 @@ Models evaluated on the validation set were:
 - Logistic Regression
 
 ### Final Model
-X classification model was the final model selected. It performed the best with an accuracy of x and AUC score of y. Emphasis was placed on reducing False Positives. A False Positive means a user answered a question correctly, when their answer was incorrect.
+Logistic Regression was the final model selected. It performed the best with an accuracy of x and AUC score of y. Emphasis was placed on reducing False Positives. A False Positive means our model predicts that a user answered a question correctly, when their actual answer was incorrect.
 
 [visual of how model works]
 
