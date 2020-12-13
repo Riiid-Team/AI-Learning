@@ -26,8 +26,9 @@ The goal of this project is to create a machine learning model that can predict 
 > “The TOEIC Listening & Reading test is an objective test… There are 200 questions to answer in two hours in Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions).” [source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
 
 </details>
-## Summary
 
+## Summary
+Placeholder
 
 ## Deliverables
 - [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
@@ -178,14 +179,14 @@ X classification model was the final model selected. It performed the best with 
 
 ### Conclusions
 #### What was best model?
-- 
+Placeholder 
 
 #### How did the findings compare with what is known?
-- 
+Placeholder
 
 ### Future Investigations
 #### What are your next steps?
-- 
+Placeholder
 
 ## How to Reproduce
 All files are reproducible and available for download and use.
