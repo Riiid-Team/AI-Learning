@@ -89,23 +89,23 @@ Placeholder
 | mean_content_accuracy       | The number of questions a user answered correctly divided by all questions they've answered in different content/topics|
 | question_content_asked      | The type of question asked                                                                  |
 | std_content_accuracy        | The standard deviation of content accuracy                                                  |
-| median_content_accuracy     | Placeholder                                                                                 |
-| skew_content_accuracy       | Placeholder                                                                                 |
-| mean_task_accuracy          | Placeholder                                                                                 |
-| question_task_asked         | Placeholder                                                                                 |
-| std_task_accuracy           | Placeholder                                                                                 |
-| median_tesk_accuracy        | Placeholder                                                                                 |
-| skew_task_accuracy          | Placeholder                                                                                 |
-| mean_timestamp_accuracy     | Placeholder                                                                                 |
-| question_timestamp_asked    | Placeholder                                                                                 |
-| std_timestamp_accuracy      | Placeholder                                                                                 |
-| median_timestamp_accuracy   | Placeholder                                                                                 |
-| skew_timestamp_accuracy     | Placeholder                                                                                 |
-| mean_priortime_accuracy     | Placeholder                                                                                 |
-| question_priortime_asked    | Placeholder                                                                                 |
-| std_priortime_accuracy      | Placeholder                                                                                 |
-| median_priortime_accuracy   | Placeholder                                                                                 |
-| skew_priortime_accuracy     | Placeholder                                                                                 |
+| median_content_accuracy     | The median accuracy for a specific content type                                             |
+| skew_content_accuracy       | The skewness of accuracy for a specific content type                                        |
+| mean_task_accuracy          | The average accuracy for a given task                                                       |
+| question_task_asked         | The type of question asked in a bundle                                                      |
+| std_task_accuracy           | The standard deviation of task accuracy                                                     |
+| median_tesk_accuracy        | The median accuracy for a task                                                              |
+| skew_task_accuracy          | The skewness of accuracy for a specific task                                                |
+| mean_timestamp_accuracy     | The average accuracy for a given timestamp                                                  |
+| question_timestamp_asked    | The timestamp a question was prompted to the user                                           |
+| std_timestamp_accuracy      | The standard deviation of accuracy for a given timestamp                                    |
+| median_timestamp_accuracy   | The median accuracy for a given timestamp                                                   |
+| skew_timestamp_accuracy     | The skewness of accuracy for a given timestamp                                              |
+| mean_priortime_accuracy     | The average accuracy of the previous question                                               |
+| question_priortime_asked    | The timestamp of the previous question prompted to the user                                 |
+| std_priortime_accuracy      | The standard deviation of accuracy for the previous question                                |
+| median_priortime_accuracy   | The median accuracy for the previous question                                               |
+| skew_priortime_accuracy     | The skewness of accuracy for the previous question                                          |
  
 ## Initial Thoughts & Hypotheses
 ### Thoughts
@@ -158,16 +158,21 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 - Scaled timestamp from milliseconds to minutes, hours, days, months, and years to look at trends overtime.
 - Refer to the feature engineering data dictionary for more information.
 
-**Preprocessing**
-- Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
-
 > Functions used to prepare the data are stored in the prepare.py module.
 
 ### Explore
-- Explore data
-- Summarize takeaways and conclusions.   
+- Used scatterplots and histograms to Visualize interactions between each feature and the target variable.
+- Performed hypothesis tests to find statistically significant relationships between each feature, and features with the target variable.
 
 ### Model
+
+**Preprocessing**
+- Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
+
+**Feature Selection**
+- Used Recursive Feature Elimination to select the top 5 features: `prior_question_had_explanation`, `user_acc_mean`, `mean_content_accuracy`, `mean_task_accuracy`, and `mean_priortime_accuracy_scaled`.
+- Used SelectKBest to select the top 5 features: `mean_content_accuracy`,`user_acc_mean`,`mean_task_accuracy`,`avg_user_q_time_scaled`, `prior_questoin_had_explanation`
+
 First, a baseline model was created to compare the our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
 Models evaluated on training set were:
 -	Logistic Regression
