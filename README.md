@@ -13,7 +13,7 @@
 ## Deliverables
 - [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
 - Final Notebook
-- [Slide Presentation](https://www.canva.com/design/DAEPyEi7DMk/XfsD6xPOHLclslweXcg87A/view?utm_content=DAEPyEi7DMk&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
+- [Slide Presentation](https://www.canva.com/design/DAEQJVWzMfI/xLQVCWT7rMXS3qD22awfGA/view?utm_content=DAEQJVWzMfI&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
 - Video presentation
 - Submission directly to Kaggle Kernels
 - Submission file must be named submission.csv
