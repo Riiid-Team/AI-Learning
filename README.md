@@ -26,6 +26,7 @@ The goal of this project is to create a machine learning model that can predict 
 > “The TOEIC Listening & Reading test is an objective test… There are 200 questions to answer in two hours in Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions).” [source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
 
 </details>
+## Summary
 
 
 ## Deliverables
@@ -111,8 +112,8 @@ Placeholder
 
 ### Hypotheses
 **Hypothesis – Question had explanation vs. Answered correctly**
-> Null hypothesis: A question with an explanation is independent of answering a question correctly.<br>
-> Alternative hypothesis: A question with an explanation is dependent on answering a question correctly.<br>
+> Null hypothesis: Answering a question correctly is independent of whether a question had an explanation.<br>
+> Alternative hypothesis: Answering a question correctly is dependent on whether a question had an explanation.<br>
 > Test: Chi-Squared Test<br>
 > Results: With a p-value less than alpha, we reject the null hypothesis.
 
@@ -126,15 +127,15 @@ Placeholder
 
 **Hypothesis – Average user question time vs. Average user accuracy**
 > Null hypothesis: There is no linear relationship between the average time a user takes to answer a question and their average accuracy.<br>
-> Alternative hypothesis: There is a relationship between the average time a user takes to answer a question and their average accuracy.<br>
+> Alternative hypothesis: There is a linear relationship between the average time a user takes to answer a question and their average accuracy.<br>
 > Test: Pearson Correlation Test<br>
 > Results: With a p-value less than alpha, we reject the null hypothesis
 > -	Users who take longer to answer questions tend to have lower overall accuracy and vice versa
 
 **Hypothesis – Average user accuracy vs. Average content accuracy**
-> Null hypothesis: Users with above average accuracy spend an equal to or greater amount of time, on average, as users with lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
-> Alternative hypothesis: Users with above average accuracy less time, on average, as users with lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
-> Test: Two-Sample One-Tailed T-Test<br>
+> Null hypothesis: There is no significant difference between users with above average accuracy and users with lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
+> Alternative hypothesis: There is a significant difference between users with above average accuracy and users with lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
+> Test: Two-Sample Two-Tailed T-Test<br>
 > Results: With a p-value less than alpha and a negative T-statistic, we reject the null hypothesis.
 > -	If users with above average accuracy answer questions (difficult and otherwise) more quickly than others users, then they may be more prepared for the content.
 
@@ -156,7 +157,24 @@ Functions used to acquire the data are stored in the acquire.py module.
 - Summarize takeaways and conclusions.   
 
 ### Model
+First, a baseline model was created to compare the following model performances. The baseline was based on the most common outcome from the train df, 1 answered correctly. Using 1 as the prediction for each observation, the baseline was 50% accurate on train. 
+Various classification models were created by fitting to the train df. Models evaluated on train were:
+-	Decision Tree
+-	Random Forest
+-	K-Nearest Neighbors
+-	Ridge Classifier
+-	SGD Classifier
+-	Logistic Regression
+
+Models evaluated on the validate df were:
+- Decision Tree
+- Random Forest
+- Logistic Regression
+
+### Final Model
 X classification model was the final model selected. It performed the best with an accuracy of x and AUC score of y. Emphasis was placed on reducing False Positives. A False Positive means a user answered a question correctly, when their answer was incorrect.
+
+[visual of how model works]
 
 ### Conclusions
 #### What was best model?
