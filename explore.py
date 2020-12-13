@@ -5,12 +5,15 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
 from sklearn.feature_selection import SelectKBest, f_regression
 
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import RFE
+
 def rfe_ranker(train):
     """
     Accepts dataframe. Uses Recursive Feature Elimination to rank the given df's features in order of their usefulness in
     predicting logerror with a logistic regression model.
     """
-    non_target_vars = ['prior_question_had_explanation', 'user_acc_mean',
+    non_target_vars = ['question_had_explanation', 'user_acc_mean',
        'mean_content_accuracy', 'mean_task_accuracy',
        'mean_timestamp_accuracy_scaled', 'mean_priortime_accuracy_scaled',
        'user_lectures_running_total_scaled', 'avg_user_q_time_scaled']
@@ -27,16 +30,13 @@ def rfe_ranker(train):
     rfe = RFE(lr, 1)
 
     # using rfe object to transform features 
-    x_rfe = rfe.fit_transform(train[non_target_vars], train[target_var])
+    rfe.fit_transform(train[non_target_vars], train[target_var])
 
     # creating mask of selected feature
     feature_mask = rfe.support_
 
     # creating train df for rfe object 
     rfe_train = train[non_target_vars]
-
-    # creating list of the top features per rfe
-    rfe_features = rfe_train.loc[:,feature_mask].columns.tolist()
 
     # creating ranked list 
     feature_ranks = rfe.ranking_
@@ -75,3 +75,4 @@ def feature_over_time(feature, train, agg_method):
     feature_on_time['years'] = (feature_on_time.timestamp/(1000*60*60*24*30*12)).round(0)
     
     return feature_on_time
+
