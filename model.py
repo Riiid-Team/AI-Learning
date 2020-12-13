@@ -138,5 +138,8 @@ def model_multiple_algos(names, classifiers, X_train, y_train, X_validate, y_val
         y_proba, score = auc_score_proba(clf, X_test, y_test)
         d = {"Algo": name, "dataset": "test", "AUC score": score}
         metrics = metrics.append(d, ignore_index=True)
+
+        # Show the completeness of the modeling
+        print(f"{name} has completed")
              
     return metrics
