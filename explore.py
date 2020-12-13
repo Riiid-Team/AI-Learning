@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
 from sklearn.feature_selection import SelectKBest, f_regression
