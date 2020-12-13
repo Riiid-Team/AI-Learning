@@ -243,9 +243,9 @@ def scale(train, validate, test, columns_to_scale):
         pd.DataFrame(scaler.transform(test[columns_to_scale]), columns=new_column_names, index=test.index),
     ], axis=1)
     
-    train.drop(columns=['mean_timestamp_accuracy', 'mean_priortime_accuracy', 'user_lectures_running_total', 'avg_user_q_time'], inplace=True)
-    validate.drop(columns=['mean_timestamp_accuracy', 'mean_priortime_accuracy', 'user_lectures_running_total', 'avg_user_q_time'], inplace=True)
-    test.drop(columns=['mean_timestamp_accuracy', 'mean_priortime_accuracy', 'user_lectures_running_total', 'avg_user_q_time'], inplace=True)
+    train.drop(columns=columns_to_scale, inplace=True)
+    validate.drop(columns=columns_to_scale, inplace=True)
+    test.drop(columns=columns_to_scale, inplace=True)
     
     return scaler, train, validate, test
 
@@ -284,15 +284,15 @@ def prep_riiid(df_train, df_validate, df_test):
     validate = handle_inf(validate)
     test = handle_inf(test)
     
-    # Merge the new features genereated from Shi
-    train = merge_with_stats_train(train)
-    validate = merge_with_stats_valortest(train, test)
-    test = merge_with_stats_valortest(train, test)
-    
     # drop lecture rows
     train = drop_lecture_rows(train)
     validate = drop_lecture_rows(validate)
     test = drop_lecture_rows(test)
+    
+    # Merge the new features genereated from Shi
+    train = merge_with_stats_train(train)
+    validate = merge_with_stats_valortest(train, test)
+    test = merge_with_stats_valortest(train, test)
     
     # drop columns no longer needed
     train = drop_columns_train(train)
@@ -322,6 +322,9 @@ def prep_riiid(df_train, df_validate, df_test):
                     'user_lectures_running_total', 'avg_user_q_time']
 
     scaler, train_s, validate_s, test_s = scale(train, validate, test, columns_to_scale)
+
+    # drop the column q_time in train_s for modeling
+    train_s.drop(columns='q_time', inplace=True)
     
     return train, validate, test, train_s, validate_s, test_s
     
