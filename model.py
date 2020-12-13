@@ -119,7 +119,7 @@ def model_multiple_algos(names, classifiers, X_train, y_train, X_validate, y_val
     for name, clf in zip(names, classifiers):
         
         # Set up a progress indicator        
-        print(f"Currently running on model {name}")
+        print(f"Currently running on model {name}") 
         
         # Fit on the train dataset        
         clf = clf.fit(X_train, y_train)
