@@ -158,8 +158,8 @@ Functions used to acquire the data are stored in the acquire.py module.
 - Summarize takeaways and conclusions.   
 
 ### Model
-First, a baseline model was created to compare the following model performances. The baseline was based on the most common outcome from the train df, 1 answered correctly. Using 1 as the prediction for each observation, the baseline was 50% accurate on train. 
-Various classification models were created by fitting to the train df. Models evaluated on train were:
+First, a baseline model was created to compare the our model performances. The baseline was based on the most common outcome from the train df, 1 answered correctly. Using 1 as the prediction for each observation, the baseline was 50% accurate on train. 
+Various classification models were created by fitting to the training dataset. Models evaluated on train were:
 -	Decision Tree
 -	Random Forest
 -	K-Nearest Neighbors
