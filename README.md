@@ -144,35 +144,39 @@ Placeholder
 ### Acquire
 Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-prediction/data). The data is stored in three separate files: lectures.csv, questions.csv, and train.csv. The primary dataset is train.csv, which has approximately 100 million user interactions with about 390,000 users. We used a random sample of 100K users for our analysis. The original 10 features describe the type of question, the time it took to answer, and whether the user’s response was correct. 
 
-Functions used to acquire the data are stored in the acquire.py module.
+> Functions used to acquire the data are stored in the acquire.py module.
 
 ### Prepare
 **Missing Values**
 - Filled missing boolean values in `question_had_explanation` with False. Missing values indicated that the question did not have an explanation or the user viewed a lecture.
 - Filled missing values in `prior_question_elapsed_time` with 0. Missing values indicated that a user viewed a lecture before answering the first question in a bundle.
-- Dropped columns: `lecture_id`, `tag`, `lecture_part`, `type_of`, `question_id`, `bundle_id`, `correct_answer`, `question_part`, `tags`
+- Dropped columns: `lecture_id`, `tag`, `lecture_part`, `type_of`, `question_id`, `bundle_id`, `correct_answer`, `question_part`, and `tags`
 - Dropped rows considered lectures: Where `answered_correctly` = -1
 
 **Feature Engineering**
-- 
+- Created new features using descriptive statistics for content, task, timestamp, and whether a question had an explanation. 
+- Scaled timestamp from milliseconds to minutes, hours, days, months, and years to look at trends overtime.
+- Refer to the feature engineering data dictionary for more information.
 
-Functions used to prepare the data are stored in te prepare.py module.
+> Functions used to prepare the data are stored in the prepare.py module.
 
 ### Explore
 - Explore data
 - Summarize takeaways and conclusions.   
 
 ### Model
-First, a baseline model was created to compare the our model performances. The baseline was based on the most common outcome from the train df, 1 answered correctly. Using 1 as the prediction for each observation, the baseline was 50% accurate on train. 
-Various classification models were created by fitting to the training dataset. Models evaluated on train were:
--	Decision Tree
--	Random Forest
--	K-Nearest Neighbors
--	Ridge Classifier
--	SGD Classifier
+First, a baseline model was created to compare the our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
+Models evaluated on training set were:
 -	Logistic Regression
+-	Decision Tree
+- Random Forest
+- AdaBoost
+- Gradient Boost
+-	K-Nearest Neighbors
+-	Naive Bayes
+-	Multilayer Perceptron
 
-Models evaluated on the validate df were:
+Models evaluated on the validation set were:
 - Decision Tree
 - Random Forest
 - Logistic Regression
@@ -184,7 +188,7 @@ X classification model was the final model selected. It performed the best with 
 
 ### Conclusions
 #### What was best model?
-Placeholder 
+Logistic Regression 
 
 #### How did the findings compare with what is known?
 Placeholder
