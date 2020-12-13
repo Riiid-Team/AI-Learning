@@ -112,7 +112,7 @@ Placeholder
 Placeholder
 
 ### Hypotheses
-**Hypothesis – Question had explanation vs. Answered correctly**
+**Hypothesis – Answered correctly vs. Question had an explanation**
 > Null hypothesis: Answering a question correctly is independent of whether a question had an explanation.<br>
 > Alternative hypothesis: Answering a question correctly is dependent on whether a question had an explanation.<br>
 > Test: Chi-Squared Test<br>
@@ -147,11 +147,16 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 Functions used to acquire the data are stored in the acquire.py module.
 
 ### Prepare
-- Create a prepare.py file. 
-- Clean dataset.
-- Missing values are investigated and handled.
-- Run train, validate, and test.
-- File is a reproducible component that is ready for exploration.
+**Missing Values**
+- Filled missing boolean values in `question_had_explanation` with False. Missing values indicated that the question did not have an explanation or the user viewed a lecture.
+- Filled missing values in `prior_question_elapsed_time` with 0. Missing values indicated that a user viewed a lecture before answering the first question in a bundle.
+- Dropped columns: `lecture_id`, `tag`, `lecture_part`, `type_of`, `question_id`, `bundle_id`, `correct_answer`, `question_part`, `tags`
+- Dropped rows considered lectures: Where `answered_correctly` = -1
+
+**Feature Engineering**
+- 
+
+Functions used to prepare the data are stored in te prepare.py module.
 
 ### Explore
 - Explore data
