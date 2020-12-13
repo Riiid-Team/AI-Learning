@@ -51,14 +51,14 @@ Placeholder
 **`train.csv`**
 | Feature Name                | Description                                                                                 |
 |-----------------------------|---------------------------------------------------------------------------------------------|
-| row_id                      | (int64) ID code for the row                                                                         |
+| row_id                      | (int64) ID code for the row                                                                 |
 | timestamp                   | (int64) The time in milliseconds between this user ineteraction and the first event completion from the user |
-| user_id                     | (int32) ID code for the user                                                                        |
-| content_id                  | (int16) ID Code for the user interaction                                                            |
+| user_id                     | (int32) ID code for the user                                                                |
+| content_id                  | (int16) ID Code for the user interaction                                                    |
 | content_type_id             | (int8) 0 if the event was a question being posed to the user, 1 is the event was watching a lecture|
-| task_container_id           | (int16) ID code for the batch of questions or lectures. -1 for lectures                             |
-| user_answer                 | (int8) The user's answer to the question, if any. -1 for lectures                                  |
-| answered_correctly          | (int8) If the user responded correctly, if any. -1 for lectures                                    |
+| task_container_id           | (int16) ID code for the batch of questions or lectures. -1 for lectures                     |
+| user_answer                 | (int8) The user's answer to the question, if any. -1 for lectures                           |
+| answered_correctly          | (int8) If the user responded correctly, if any. -1 for lectures                             |
 | prior_question_elapsed_time | (float32) The average time in milliseconds it took a user to answer each question in the previous question bundle, ignoring any lectures inbetween. Null for a user's first question bundle or lecture. Note: The time is the average time a user took to solve each question in the previous bundle.|
 | prior_question_had_explanation | (bool) Whether or not the user saw an explanation and the correct response(s) after answering the previous question bundle, ignoring any lectures in between. The value is shared across a single question bundle, and is null for a user's first question bundle or lecture. Typically the first several questions a user sees were part of an onboarding diagnostic test where they did not get any feedback. |
 
@@ -82,13 +82,13 @@ Placeholder
 ### Feature Engineering
 | Feature Name                | Description                                                                                 |
 |-----------------------------|---------------------------------------------------------------------------------------------|
-| user_lectures_rt            | Placeholder                                                                                 |
-| last_q_time                 | Placeholder                                                                                 |
-| user_acc_mean               | Placeholder                                                                                 |
-| avg_user_q_time             | Placeholder                                                                                 |
-| mean_content_accuracy       | Placeholder                                                                                 |
-| question_content_asked      | Placeholder                                                                                 |
-| std_content_accuracy        | Placeholder                                                                                 |
+| user_lectures_running_total | The running total of lectures a user has watched at a given timestamp                       |
+| last_q_time                 | The amount of time a user spent on the previous question                                    |
+| user_acc_mean               | The number of questions a user answered correctly divided by all questions they've answered |
+| avg_user_q_time             | The average amount of time a user spends on a question                                      |
+| mean_content_accuracy       | The number of questions a user answered correctly divided by all questions they've answered in different content/topics|
+| question_content_asked      | The type of question asked                                                                  |
+| std_content_accuracy        | The standard deviation of content accuracy                                                  |
 | median_content_accuracy     | Placeholder                                                                                 |
 | skew_content_accuracy       | Placeholder                                                                                 |
 | mean_task_accuracy          | Placeholder                                                                                 |
