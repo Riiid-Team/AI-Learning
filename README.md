@@ -105,12 +105,44 @@ The goal of this project is to create a machine learning model that can predict 
 | median_priortime_accuracy   | Placeholder                                                                                 |
 | skew_priortime_accuracy     | Placeholder                                                                                 |
  
+## Initial Thoughts & Hypotheses
+### Thoughts
+Placeholder
+
+### Hypotheses
+**Hypothesis – Question had explanation vs. Answered correctly**
+> Null hypothesis: A question with an explanation is independent of answering a question correctly.<br>
+> Alternative hypothesis: A question with an explanation is dependent on answering a question correctly.<br>
+> Test: Chi-Squared Test<br>
+> Results: With a p-value less than alpha, we reject the null hypothesis.
+
+**Hypothesis – Number of lectures a user has watched vs. Average task accuracy**
+> Null hypothesis: There is no linear relationship between the number of lectures a user has watched and their average task accuracy.<br>
+> Alternative hypothesis: : There is a linear relationship between the number of lectures a user has watched and their average task accuracy.<br>
+> Test: Pearson Correlation Test<br>
+> Results: With a p-value less than alpha, we reject the null hypothesis.
+> -	On average, as the number of lectures a user has seen increases, so does their task accuracy.
+> -	Viewing lectures may have a weak positive impact on user accuracy.
+
+**Hypothesis – Average user question time vs. Average user accuracy**
+> Null hypothesis: There is no linear relationship between the average time a user takes to answer a question and their average accuracy.<br>
+> Alternative hypothesis: There is a relationship between the average time a user takes to answer a question and their average accuracy.<br>
+> Test: Pearson Correlation Test<br>
+> Results: With a p-value less than alpha, we reject the null hypothesis
+> -	Users who take longer to answer questions tend to have lower overall accuracy and vice versa
+
+**Hypothesis – Average user accuracy vs. Average content accuracy**
+> Null hypothesis: Users with above average accuracy spend an equal to or greater amount of time, on average, as users with lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
+> Alternative hypothesis: Users with above average accuracy less time, on average, as users with lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
+> Test: Two-Sample One-Tailed T-Test<br>
+> Results: With a p-value less than alpha and a negative T-statistic, we reject the null hypothesis.
+> -	If users with above average accuracy answer questions (difficult and otherwise) more quickly than others users, then they may be more prepared for the content.
 
 ## Project Steps
 ### Acquire
-- Data is acquired from Kaggle - [Riiid Answer Correctness Prediction](https://www.kaggle.com/c/riiid-test-answer-prediction/data).
-- Create an acquire.py file.  
-- File is a reproducible component for gathering the data.
+Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-prediction/data). The data is stored in three separate files: lectures.csv, questions.csv, and train.csv. The primary dataset is train.csv, which has approximately 100 million user interactions with about 390,000 users. We used a random sample of 100K users for our analysis. The original 10 features describe the type of question, the time it took to answer, and whether the user’s response was correct. 
+
+Functions used to acquire the data are stored in the acquire.py module.
 
 ### Prepare
 - Create a prepare.py file. 
@@ -124,7 +156,7 @@ The goal of this project is to create a machine learning model that can predict 
 - Summarize takeaways and conclusions.   
 
 ### Model
-- 
+X classification model was the final model selected. It performed the best with an accuracy of x and AUC score of y. Emphasis was placed on reducing False Positives. A False Positive means a user answered a question correctly, when their answer was incorrect.
 
 ### Conclusions
 #### What was best model?
@@ -132,7 +164,6 @@ The goal of this project is to create a machine learning model that can predict 
 
 #### How did the findings compare with what is known?
 - 
-
 
 ### Future Investigations
 #### What are your next steps?
