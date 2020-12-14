@@ -13,10 +13,8 @@ def rfe_ranker(train):
     Accepts dataframe. Uses Recursive Feature Elimination to rank the given df's features in order of their usefulness in
     predicting logerror with a logistic regression model.
     """
-    non_target_vars = ['question_had_explanation', 'user_acc_mean',
-       'mean_content_accuracy', 'mean_task_accuracy',
-       'mean_timestamp_accuracy_scaled', 'mean_priortime_accuracy_scaled',
-       'user_lectures_running_total_scaled', 'avg_user_q_time_scaled']
+    non_target_vars = ['question_had_explanation', 'user_acc_mean','mean_content_accuracy', 'mean_task_accuracy',
+    'user_lectures_running_total_scaled', 'avg_user_q_time_scaled']
     
     target_var = ['answered_correctly']
     
