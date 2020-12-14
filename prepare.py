@@ -291,7 +291,7 @@ def prep_riiid(df_train, df_validate, df_test):
     
     # Merge the new features genereated from Shi
     train = merge_with_stats_train(train)
-    validate = merge_with_stats_valortest(train, test)
+    validate = merge_with_stats_valortest(train, validate)
     test = merge_with_stats_valortest(train, test)
     
     # drop columns no longer needed
