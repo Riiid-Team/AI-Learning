@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
@@ -7,6 +9,50 @@ from sklearn.feature_selection import SelectKBest, f_regression
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
+
+
+def question_explanation_graph(df):
+    '''
+    This function accepts a training dataset and returns
+    a plot of percentage questions of questions that are correct.
+    
+    Two Subgroups
+    -------------
+    Questions that had explanations: % answered correctly, % answered incorrectly
+    Questions that did not have explanations: % answered correctly, % answered incorrectly    
+    '''
+    # Answered Correctly vs Prior Question Had Explanation
+    prior_question = df.groupby(['question_had_explanation', 'answered_correctly']).agg({'answered_correctly': ['count']})
+    
+    questions_without_explanations = prior_question.iloc[:,0][:2]
+    questions_with_explanations = prior_question.iloc[:,0][2:]
+    
+    # total number of questions with and without explanations
+    total_questions_without_explanations = sum(questions_without_explanations)
+    total_questions_with_explanations = sum(questions_with_explanations)
+
+    # questions without explanations
+    qwoe_incorrect = questions_without_explanations.iloc[0]/total_questions_without_explanations
+    qwoe_correct = questions_without_explanations.iloc[1]/total_questions_without_explanations
+
+    # questions with explanations
+    qwe_incorrect = questions_with_explanations.iloc[0]/total_questions_with_explanations
+    qwe_correct = questions_with_explanations.iloc[1]/total_questions_with_explanations
+
+    df = pd.DataFrame({
+        'Question_had_an_explanation': ['Incorrect', 'Correct'],
+        'Explanation': [qwe_incorrect, qwe_correct],
+        'No Explanation': [qwoe_incorrect, qwoe_correct]
+    })
+    tidy = df.melt(id_vars='Question_had_an_explanation')
+    sns.set_context('talk')
+    plt.figure(figsize=(13, 7))
+    sns.barplot(x='variable', y='value', hue='Question_had_an_explanation', data=tidy)
+    plt.xlabel('')
+    plt.ylabel('%')
+    plt.ylim(0, 1)
+    plt.yticks(np.linspace(0,1,11));
+
 
 def rfe_ranker(train):
     """
