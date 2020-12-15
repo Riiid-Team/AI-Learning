@@ -180,7 +180,10 @@ Models evaluated on train, validate, and the test set were:
 ### Final Model
 Random Forest was the final model selected. It performed the best with an AUC score of .692. Emphasis was placed on reducing False Positives. A False Positive means our model predicted that a user answered a question correctly, when their answer was actually incorrect.
 
-![Random Forest](./visuals/random_forest_visual.png)
+> A Random Forest algorithm creates a large number of individual decision trees (models) and combines them to produce a predictive model.
+
+<img src="./images/random_forest_visual.png"
+	title="random_forest" width="650" height="500" />
 
 ### Conclusions
 #### What was best model?
