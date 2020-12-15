@@ -4,7 +4,6 @@
 
 ## About the Project
 
-
 ## Goals
 The goal of this project is to create a machine learning model that predicts whether users will answer questions correctly.
 
@@ -74,25 +73,28 @@ The goal of this project is to create a machine learning model that predicts whe
 ### Feature Engineering
 | Feature Name                | Description                                                                                 |
 |-----------------------------|---------------------------------------------------------------------------------------------|
-| user_lectures_running_total | The running total of lectures a user has watched at a given timestamp                       |
 | question_had_explanation    | Indicates if a question had an explanation                                                  |
-| q_time                      | The amount of time a user spent on the previous question                                    |
 | user_acc_mean               | The number of questions a user answered correctly divided by all questions they've answered |
+| user_lectures_running_total | The running total of lectures a user has watched at a given timestamp                       |
 | avg_user_q_time             | The average amount of time a user spends on a question                                      |
 | mean_content_accuracy       | The number of questions a user answered correctly divided by all questions they've answered in different content/topics|
-| question_content_asked      | The type of question asked                                                                  |
-| std_content_accuracy        | The standard deviation of content accuracy                                                  |
-| median_content_accuracy     | The median accuracy for a specific content type                                             |
-| skew_content_accuracy       | The skewness of accuracy for a specific content type                                        |
 | mean_task_accuracy          | The average accuracy for a given task                                                       |
-| question_task_asked         | The type of question asked in a bundle                                                      |
-| std_task_accuracy           | The standard deviation of task accuracy                                                     |
+| median_content_accuracy     | The median accuracy for a specific content type                                             |
 | median_tesk_accuracy        | The median accuracy for a task                                                              |
-| skew_task_accuracy          | The skewness of accuracy for a specific task                                                |
-| question_timestamp_asked    | The timestamp a question was prompted to the user                                           |
-| std_timestamp_accuracy      | The standard deviation of accuracy for a given timestamp                                    |
-| skew_timestamp_accuracy     | The skewness of accuracy for a given timestamp                                              |
+| q_time                      | The amount of time a user spent on the previous question                                    |
+| question_content_asked      | The type of question asked                                                                  |
 | question_priortime_asked    | The timestamp of the previous question prompted to the user                                 |
+| question_task_asked         | The type of question asked in a bundle                                                      |
+| question_timestamp_asked    | The timestamp a question was prompted to the user                                           |
+| std_content_accuracy        | The standard deviation of content accuracy                                                  |
+| std_task_accuracy           | The standard deviation of task accuracy                                                     |
+| std_timestamp_accuracy      | The standard deviation of accuracy for a given timestamp                                    |
+| skew_content_accuracy       | The skewness of accuracy for a specific content type                                        |
+| skew_task_accuracy          | The skewness of accuracy for a specific task                                                |
+| skew_timestamp_accuracy     | The skewness of accuracy for a given timestamp                                              |
+| avg_user_q_time [scaled]    | Scaled version of avg_user_q_time using MinMaxScaler. Returned from prep_riiid function     | 
+| user_lectures_running_total [scaled] | Scaled version of user_lectures_running_total using MinMaxScaler. Returned from prep_riiid function |
+
 
 ## Initial Thoughts
 - Are questions with explanations answered correctly more often?
@@ -178,7 +180,7 @@ Models evaluated on train, validate, and the test set were:
 ### Final Model
 Random Forest was the final model selected. It performed the best with an AUC score of .692. Emphasis was placed on reducing False Positives. A False Positive means our model predicted that a user answered a question correctly, when their answer was actually incorrect.
 
-[visual of how model works]
+![Random Forest](./visuals/random_forest_visual.png)
 
 ### Conclusions
 #### What was best model?
