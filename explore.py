@@ -45,13 +45,18 @@ def question_explanation_graph(df):
         'No Explanation': [qwoe_incorrect, qwoe_correct]
     })
     tidy = df.melt(id_vars='Question_had_an_explanation')
+    
+    # Plotting
     sns.set_context('talk')
     plt.figure(figsize=(13, 7))
-    sns.barplot(x='variable', y='value', hue='Question_had_an_explanation', data=tidy)
+    sns.barplot(x='variable', y='value', hue='Question_had_an_explanation', data=tidy, palette=['#d55e00', '#009e73'], ec='black')
+    plt.title("Students Performs Better On Questions With Explanations",fontsize=20) 
+    plt.legend() 
     plt.xlabel('')
-    plt.ylabel('%')
+    plt.ylabel('Percentage',fontsize=15)
     plt.ylim(0, 1)
-    plt.yticks(np.linspace(0,1,11));
+    plt.yticks(np.linspace(0,1,11))
+    plt.show()
 
 
 def rfe_ranker(train):
