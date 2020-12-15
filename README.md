@@ -182,9 +182,11 @@ Random Forest was the final model selected. It performed the best with an AUC sc
 
 > A Random Forest algorithm creates a large number of individual decision trees (models) and combines them to produce a predictive model.
 
+<p align="center">
 <img src="./images/random_forest_visual.png"
-	title="random_forest" width="650" height="500" />
-
+	title="random_forest" width="650" height="500">
+</p>
+	
 ### Conclusions
 #### What was best model?
 - Random Forest: AUC score of .692
