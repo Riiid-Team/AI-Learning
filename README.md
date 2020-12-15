@@ -6,7 +6,7 @@
 
 
 ## Goals
-The goal of this project is to create a machine learning model that can predict whether or not a user will answer a problem correctly.
+The goal of this project is to create a machine learning model that predicts whether users will answer questions correctly.
 
 ## Background
 
@@ -16,33 +16,25 @@ The goal of this project is to create a machine learning model that can predict 
 <details>
   <summary>More Info:  Click to Expand </summary>
  
-### Riiid Labs EdTech Application: Santa TOEIC
+### Education Platform: Santa TOEIC (Test of English for International Communication)
 > “Santa TOEIC is the AI-based web/mobile learning platform for TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [source](https://www.riiid.co/en/product)
 
-### TOEIC: Test of English for International Communication
-> “The Test of English for International Communication (TOEIC) is an international standardized test of English language proficiency for non-native speakers. It is intentionally designed to measure the everyday English skills of people working in an international environment.” [source](https://en.wikipedia.org/wiki/TOEIC)
-
-### TOEIC Listening and Reading: Exam used to build Santa TOEIC
+### TOEIC: Listening and Reading
 > “The TOEIC Listening & Reading test is an objective test… There are 200 questions to answer in two hours in Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions).” [source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
 
 </details>
-
-## Summary
-Placeholder
 
 ## Deliverables
 - [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
 - Final Notebook
 - [Slide Presentation](https://www.canva.com/design/DAEQJVWzMfI/xLQVCWT7rMXS3qD22awfGA/view?utm_content=DAEQJVWzMfI&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
 - Video presentation
-- Submission directly to Kaggle Kernels
-- Submission file must be named submission.csv
+- Submission to Kaggle competition
 
 ## Project Management 
 - [Trello Board](https://trello.com/b/HK21qlYW) 
 - [Capstone Standup](https://docs.google.com/document/d/1tSexQKQZE7XicJyN401ZG8SlkKxIRokE44qmFS5kDZI/edit?usp=sharing)
 - [Knowledge Share](https://docs.google.com/document/d/1W8FVh89gN6bMn85uHgqLIz50elTtU2H9-R7jwpOUBRw/edit?usp=sharing)
-
 
 ## Data Dictionary
 
@@ -52,7 +44,7 @@ Placeholder
 | Feature Name                | Description                                                                                 |
 |-----------------------------|---------------------------------------------------------------------------------------------|
 | row_id                      | (int64) ID code for the row                                                                 |
-| timestamp                   | (int64) The time in milliseconds between this user ineteraction and the first event completion from the user |
+| timestamp                   | (int64) The time in milliseconds between this user interaction and the first event completion from the user |
 | user_id                     | (int32) ID code for the user                                                                |
 | content_id                  | (int16) ID Code for the user interaction                                                    |
 | content_type_id             | (int8) 0 if the event was a question being posed to the user, 1 is the event was watching a lecture|
@@ -83,7 +75,8 @@ Placeholder
 | Feature Name                | Description                                                                                 |
 |-----------------------------|---------------------------------------------------------------------------------------------|
 | user_lectures_running_total | The running total of lectures a user has watched at a given timestamp                       |
-| last_q_time                 | The amount of time a user spent on the previous question                                    |
+| question_had_explanation    | Indicates if a question had an explanation                                                  |
+| q_time                      | The amount of time a user spent on the previous question                                    |
 | user_acc_mean               | The number of questions a user answered correctly divided by all questions they've answered |
 | avg_user_q_time             | The average amount of time a user spends on a question                                      |
 | mean_content_accuracy       | The number of questions a user answered correctly divided by all questions they've answered in different content/topics|
@@ -96,22 +89,42 @@ Placeholder
 | std_task_accuracy           | The standard deviation of task accuracy                                                     |
 | median_tesk_accuracy        | The median accuracy for a task                                                              |
 | skew_task_accuracy          | The skewness of accuracy for a specific task                                                |
-| mean_timestamp_accuracy     | The average accuracy for a given timestamp                                                  |
 | question_timestamp_asked    | The timestamp a question was prompted to the user                                           |
 | std_timestamp_accuracy      | The standard deviation of accuracy for a given timestamp                                    |
-| median_timestamp_accuracy   | The median accuracy for a given timestamp                                                   |
 | skew_timestamp_accuracy     | The skewness of accuracy for a given timestamp                                              |
-| mean_priortime_accuracy     | The average accuracy of the previous question                                               |
 | question_priortime_asked    | The timestamp of the previous question prompted to the user                                 |
-| std_priortime_accuracy      | The standard deviation of accuracy for the previous question                                |
-| median_priortime_accuracy   | The median accuracy for the previous question                                               |
-| skew_priortime_accuracy     | The skewness of accuracy for the previous question                                          |
- 
-## Initial Thoughts & Hypotheses
-### Thoughts
-Placeholder
 
-### Hypotheses
+## Initial Thoughts
+- Are questions with explanations answered correctly more often?
+- Do users with higher accuracy take longer to answer questions?
+- Are there questions that are more difficult to answer than others?
+- How long does the average user engage with the platform?
+- Does the number of lectures a user watch impact their accuracy?
+
+## Project Steps
+### Acquire
+Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-prediction/data). The data is stored in three separate files: lectures.csv, questions.csv, and train.csv. The primary dataset is train.csv, which has 100+ million user interactions from 390,000+ users. We used a random sample of 100K users for our analysis. The original 10 features describe the type of question, the time it took to answer, and whether the user’s response was correct.
+
+### Prepare
+**Missing Values**
+- Filled missing boolean values in `question_had_explanation` with False. Missing values indicated that the question did not have an explanation or the user viewed a lecture.
+- Filled missing values in `prior_question_elapsed_time` with 0. Missing values indicated that a user viewed a lecture before answering the first question in a bundle of questions.
+- Dropped columns: `lecture_id`, `tag`, `lecture_part`, `type_of`, `question_id`, `bundle_id`, `correct_answer`, `question_part`, and `tags`
+- Dropped rows considered lectures: Where `answered_correctly` = -1
+
+**Feature Engineering**
+- Created new features using descriptive statistics for content, task, timestamp, and whether a question had an explanation. 
+- Scaled timestamp from milliseconds to weeks to look at trends overtime.
+- Refer to the feature engineering data dictionary for more information.
+
+**Preprocessing**
+- Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
+
+### Explore
+- Used scatterplots and histograms to visualize interactions between features and the target variable.
+- Performed hypothesis tests to find statistically significant relationships between features.
+
+#### Hypotheses
 **Hypothesis – Answered correctly vs. Question had an explanation**
 > Null hypothesis: Answering a question correctly is independent of whether a question had an explanation.<br>
 > Alternative hypothesis: Answering a question correctly is dependent on whether a question had an explanation.<br>
@@ -134,47 +147,25 @@ Placeholder
 > -	Users who take longer to answer questions tend to have lower overall accuracy and vice versa
 
 **Hypothesis – Average user accuracy vs. Average content accuracy**
-> Null hypothesis: There is no significant difference between users with above average accuracy and users with lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
-> Alternative hypothesis: There is a significant difference between users with above average accuracy and users with lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
+> Null hypothesis: There is no significant difference between users with above average accuracy and users with average or lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
+> Alternative hypothesis: There is a significant difference between users with above average accuracy and users with average or lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
 > Test: Two-Sample Two-Tailed T-Test<br>
-> Results: With a p-value less than alpha and a negative T-statistic, we reject the null hypothesis.
+> Results: With a p-value less than alpha, we reject the null hypothesis.
 > -	If users with above average accuracy answer questions (difficult and otherwise) more quickly than others users, then they may be more prepared for the content.
-
-## Project Steps
-### Acquire
-Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-prediction/data). The data is stored in three separate files: lectures.csv, questions.csv, and train.csv. The primary dataset is train.csv, which has 100+ million user interactions from 390,000+ users. We used a random sample of 100K users for our analysis. The original 10 features describe the type of question, the time it took to answer, and whether the user’s response was correct. 
-
-> Functions used to acquire the data are stored in the acquire.py module.
-
-### Prepare
-**Missing Values**
-- Filled missing boolean values in `question_had_explanation` with False. Missing values indicated that the question did not have an explanation or the user viewed a lecture.
-- Filled missing values in `prior_question_elapsed_time` with 0. Missing values indicated that a user viewed a lecture before answering the first question in a bundle.
-- Dropped columns: `lecture_id`, `tag`, `lecture_part`, `type_of`, `question_id`, `bundle_id`, `correct_answer`, `question_part`, and `tags`
-- Dropped rows considered lectures: Where `answered_correctly` = -1
-
-**Feature Engineering**
-- Created new features using descriptive statistics for content, task, timestamp, and whether a question had an explanation. 
-- Scaled timestamp from milliseconds to minutes, hours, days, months, and years to look at trends overtime.
-- Refer to the feature engineering data dictionary for more information.
-
-> Functions used to prepare the data are stored in the prepare.py module.
-
-### Explore
-- Used scatterplots and histograms to Visualize interactions between each feature and the target variable.
-- Performed hypothesis tests to find statistically significant relationships between each feature, and features with the target variable.
-
-### Model
-
-**Preprocessing**
-- Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
 
 **Feature Selection**
 - Used Recursive Feature Elimination to select the top 5 features: `prior_question_had_explanation`, `user_acc_mean`, `mean_content_accuracy`, `mean_task_accuracy`, and `mean_priortime_accuracy_scaled`.
-- Used SelectKBest to select the top 5 features: `mean_content_accuracy`,`user_acc_mean`,`mean_task_accuracy`,`avg_user_q_time_scaled`, `prior_questoin_had_explanation`
+- Used SelectKBest to select the top 5 features: `mean_content_accuracy`,`user_acc_mean`,`mean_task_accuracy`,`avg_user_q_time_scaled`, `prior_questoin_had_explanation`.
+- We selected the 4 features that both lists had in common.
+> 1. mean_content_accuracy
+> 2. user_acc_mean
+> 3. mean_task_accuracy
+> 4. prior_question_had_explanation
+- In the interest of time, we used all of the features from exploration to build our MVP models. In the next iteration of this project we will limit the features used in modeling.
 
-First, a baseline model was created to compare the our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
-Models evaluated on training set were:
+### Model
+First, a baseline model was created to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
+Models evaluated on train, validate, and the test set were:
 -	Logistic Regression
 -	Decision Tree
 - Random Forest
@@ -182,33 +173,28 @@ Models evaluated on training set were:
 - Gradient Boost
 -	K-Nearest Neighbors
 -	Naive Bayes
--	Multilayer Perceptron
-
-Models evaluated on the validation set were:
-- Decision Tree
-- Random Forest
-- Logistic Regression
+-	Neural Net
 
 ### Final Model
-Logistic Regression was the final model selected. It performed the best with an accuracy of x and AUC score of y. Emphasis was placed on reducing False Positives. A False Positive means our model predicts that a user answered a question correctly, when their actual answer was incorrect.
+Random Forest was the final model selected. It performed the best with an AUC score of .692. Emphasis was placed on reducing False Positives. A False Positive means our model predicted that a user answered a question correctly, when their answer was actually incorrect.
 
 [visual of how model works]
 
 ### Conclusions
 #### What was best model?
-Logistic Regression 
-
-#### How did the findings compare with what is known?
-Placeholder
+- Random Forest: AUC score of .692
 
 ### Future Investigations
 #### What are your next steps?
-Placeholder
+- Use this predictive model on Riiid's other educational programs.
+- Explore more features and different modeling like xgboost and lightlgbm.
+- Improve model to predict new student performance.
 
 ## How to Reproduce
 All files are reproducible and available for download and use.
 - [x] Read this README.md
-- [ ] Download the aquire.py, prepare.py, and Final_Report.ipynb files
+- [ ] Download the aquire.py, prepare.py, and MVP.ipynb files
+- [ ] Run MVP.ipynb
 
 ## Contact Us 
 Daniella Bojado
@@ -222,4 +208,3 @@ Yongliang Shi
 
 Christopher Logan Ortiz
 - christopher.logan.ortiz@gmail.com
-
