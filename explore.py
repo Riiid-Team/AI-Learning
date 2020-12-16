@@ -101,17 +101,31 @@ def rfe_ranker(train):
 
 
 def KBest_ranker(X, y, n):
-   """
-   Returns the top n selected features based on the SelectKBest calss
-   Parameters: predictors(X) in df, target(y) in df, the number of features to select(n)
-   """
-   f_selector = SelectKBest(f_classif, k=n)
-   f_selector = f_selector.fit(X, y)
-   f_support = f_selector.get_support()
-   f_feature = X.iloc[:, f_support].columns.tolist()
-   df_features = pd.DataFrame({'Features': f_feature, 
-                                'Rank': range(1, n_features+1)})
-   return f_feature
+    '''
+    Returns the top n selected features with their scores based on the SelectKBest calss
+    Parameters: scaled predictors(X) in df, target(y) in df, the number of features to select(n)
+    '''
+    
+    # parameters: f_regression stats test, give me 5 features
+    f_selector = SelectKBest(f_classif, k=n)
+
+    # find the top 4 X's correlated with y
+    f_selector.fit(X, y)
+
+    # boolean mask of whether the column was selected or not. 
+    feature_score = f_selector.scores_.round(2)
+
+    # Put the features in a dataframe
+    df_features = pd.DataFrame({'features': X_train.columns, 
+                                'score': feature_score})
+
+    # Sort the features based on their score
+    df_features.sort_values(by="score", ascending=False, inplace=True, ignore_index=True)
+
+    # Add a rank column
+    df_features['rank'] = range(1, 11)
+  
+    return df_features[:n]
 
 def feature_over_time(feature, train, agg_method):
     feature_on_time = pd.DataFrame(train.groupby("timestamp")[feature].agg([agg_method]))
