@@ -242,6 +242,53 @@ def boolean_to_num(df):
     return df
 
 
+def tag_bundle_features(train, validate, test):
+    '''
+    This function accepts the train, validate, and test sets.
+    Returns new features on train, validate, and test using population stats from the training set.
+    
+    Parameters
+    ----------
+    
+    
+    Returns
+    -------
+    
+    '''
+    
+    # Calculate the average accuracy for each unique bundle id
+    bundle_accuracy = train.groupby(['bundle_id'])['answered_correctly'].mean().to_frame().reset_index()
+    bundle_accuracy.columns = ['bundle_id', 'mean_bundle_accuracy']
+    
+    # Add bundle mean accuracy as a feature to train, validate, and test
+    merged_train = train.merge(bundle_accuracy, left_on='bundle_id', right_on='bundle_id', how='left')
+    merged_validate = validate.merge(bundle_accuracy, left_on='bundle_id', right_on='bundle_id', how='left')
+    merged_test = test.merge(bundle_accuracy, left_on='bundle_id', right_on='bundle_id', how='left')
+    
+    # Calculate the average part accuracy
+    tag_accuracy = train.groupby(['question_part'])['answered_correctly'].agg(['mean']).reset_index()
+    tag_accuracy.columns = ['question_part', 'mean_part_accuracy']
+    
+    # Add average part accuracy
+    train_df = merged_train.merge(tag_accuracy, left_on='question_part', right_on='question_part')
+    validate_df = merged_validate.merge(tag_accuracy, left_on='question_part', right_on='question_part')
+    test_df = merged_test.merge(tag_accuracy, left_on='question_part', right_on='question_part')
+    
+    # Calculate the mean container accuracy for each part
+    tag_bundles = train.groupby(['question_id', 'task_container_id', 'question_part'])['answered_correctly']\
+                                .mean()\
+                        .reset_index()
+    tag_bundles.rename(columns={'answered_correctly': 'mean_container_part_accuracy'}, inplace=True)
+    
+    # Add mean container part accuracy
+    train_df = train_df.merge(tag_bundles)
+    validate_df = validate_df.merge(tag_bundles)
+    test_df = test_df.merge(tag_bundles)
+
+    
+    return train_df, validate_df, test_df
+
+
 ####### COMPLETE PREP FUNCTION ########
 
 def prep_riiid(df_train, df_validate, df_test):
