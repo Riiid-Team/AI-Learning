@@ -149,10 +149,10 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > -	Users who take longer to answer questions tend to have lower overall accuracy and vice versa
 
 **Hypothesis – Average user accuracy vs. Average content accuracy**
-> Null hypothesis: There is no significant difference between users with above average accuracy and users with average or lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
-> Alternative hypothesis: There is a significant difference between users with above average accuracy and users with average or lower-than-average accuracy on questions with lower-than-average content accuracy.<br>
-> Test: Two-Sample Two-Tailed T-Test<br>
-> Results: With a p-value less than alpha, we reject the null hypothesis.
+> Null hypothesis: Users with above average accuracy spend the same amount of time or more time on questions with lower-than-average content accuracy than users with average or lower-than-average accuracy.<br>
+> Alternative hypothesis: Users with above average accuracy spend less time on questions with lower-than-average content accuracy than users with average or lower-than-average accuracy.<br>
+> Test: Two-Sample One-Tailed T-Test<br>
+> Results: With a p-value less than alpha, and t less than 0, we reject the null hypothesis.
 > -	If users with above average accuracy answer questions (difficult and otherwise) more quickly than others users, then they may be more prepared for the content.
 
 **Feature Selection**
