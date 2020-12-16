@@ -26,7 +26,7 @@ The goal of this project is to create a machine learning model that predicts whe
 ## Deliverables
 - [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
 - Final Notebook
-- [Slide Presentation](https://www.canva.com/design/DAEQJVWzMfI/xLQVCWT7rMXS3qD22awfGA/view?utm_content=DAEQJVWzMfI&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
+- [Slide Presentation](https://www.canva.com/design/DAEQdOA2zHs/_4I_Gq1g_IqzFKnbDv6cVQ/view?utm_content=DAEQdOA2zHs&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
 - Video presentation
 - Submission to Kaggle competition
 
