@@ -126,8 +126,8 @@ def KBest_ranker(X, y, n):
     m = X.shape[1]
     
     # Add a rank column
-    df_features['rank'] = range(1, m)
-  
+    df_features['rank'] = range(1, m+1)
+    
     return df_features[:n]
 
 def feature_over_time(feature, train, agg_method):
