@@ -163,7 +163,6 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > 2. user_acc_mean
 > 3. mean_task_accuracy
 > 4. prior_question_had_explanation
-- In the interest of time, we used all of the features from exploration to build our MVP models. In the next iteration of this project we will limit the features used in modeling.
 
 ### Model
 First, a baseline model was created to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
