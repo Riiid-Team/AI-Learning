@@ -25,7 +25,7 @@ The goal of this project is to create a machine learning model that predicts whe
 
 ## Deliverables
 - [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
-- Final Notebook
+- [Final Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/Final-Report.ipynb)
 - [Slide Presentation](https://www.canva.com/design/DAEQdOA2zHs/_4I_Gq1g_IqzFKnbDv6cVQ/view?utm_content=DAEQdOA2zHs&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
 - Video presentation
 - Submission to Kaggle competition
@@ -199,8 +199,8 @@ Random Forest was the final model selected. It performed the best with an AUC sc
 ## How to Reproduce
 All files are reproducible and available for download and use.
 - [x] Read this README.md
-- [ ] Download the aquire.py, prepare.py, and MVP.ipynb files
-- [ ] Run MVP.ipynb
+- [ ] Download the aquire.py, prepare.py, and Final-Report.ipynb files
+- [ ] Run Final-Report.ipynb
 
 ## Contact Us 
 Daniella Bojado
