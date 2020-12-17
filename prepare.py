@@ -278,23 +278,21 @@ def part_bundle_features(train, validate, test):
     # Calculate the mean container accuracy for each part
     tag_bundles = train.groupby(['question_id', 'task_container_id', 'part'])['answered_correctly'].mean().round(2).reset_index()
     tag_bundles.rename(columns={'answered_correctly': 'mean_container_part_accuracy'}, inplace=True)
-    tag_bundles.drop(columns='question_id', inplace=True)
     
-#     # Add mean container part accuracy
-#     train_set = train_df.merge(tag_bundles, how='left', 
-#                                left_on=['task_container_id', 'part'], 
-#                                right_on=['task_container_id', 'part'])
+    # Add mean container part accuracy
+    train_set = train_df.merge(tag_bundles, how='left', 
+                               left_on=['task_container_id', 'part', 'question_id'], 
+                               right_on=['task_container_id', 'part', 'question_id'])
     
-#     validate_set = validate_df.merge(tag_bundles, how='left', 
-#                                      left_on=['task_container_id', 'part'], 
-#                                      right_on=['task_container_id', 'part'])
+    validate_set = validate_df.merge(tag_bundles, how='left', 
+                                     left_on=['task_container_id', 'part', 'question_id'], 
+                                     right_on=['task_container_id', 'part', 'question_id'])
     
-#     test_set = test_df.merge(tag_bundles, how='left', 
-#                              left_on=['task_container_id', 'part'], 
-#                              right_on=['task_container_id', 'part'])
+    test_set = test_df.merge(tag_bundles, how='left', 
+                             left_on=['task_container_id', 'part', 'question_id'], 
+                             right_on=['task_container_id', 'part', 'question_id'])
 
-    
-    return train_df, validate_df, test_df
+    return train_set, validate_set, test_set
 
 ####### COMPLETE PREP FUNCTION ########
 
