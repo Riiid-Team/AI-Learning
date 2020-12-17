@@ -105,25 +105,28 @@ def KBest_ranker(X, y, n):
     Returns the top n selected features with their scores based on the SelectKBest calss
     Parameters: scaled predictors(X) in df, target(y) in df, the number of features to select(n)
     '''
-    
+
     # parameters: f_regression stats test, give me 5 features
     f_selector = SelectKBest(f_classif, k=n)
 
-    # find the top 4 X's correlated with y
+    # Fit on X and y
     f_selector.fit(X, y)
 
     # boolean mask of whether the column was selected or not. 
     feature_score = f_selector.scores_.round(2)
 
     # Put the features in a dataframe
-    df_features = pd.DataFrame({'features': X_train.columns, 
+    df_features = pd.DataFrame({'features': X.columns, 
                                 'score': feature_score})
 
     # Sort the features based on their score
     df_features.sort_values(by="score", ascending=False, inplace=True, ignore_index=True)
 
+    # Compute how many features in X
+    m = X.shape[1]
+    
     # Add a rank column
-    df_features['rank'] = range(1, 11)
+    df_features['rank'] = range(1, m)
   
     return df_features[:n]
 
