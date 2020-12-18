@@ -8,6 +8,7 @@ import seaborn as sns
 
 from sklearn.metrics import plot_roc_curve, plot_precision_recall_curve, roc_auc_score
 
+
 def auc_curve_plot(clf, X, y):
     '''
     This function accepts y_validate or y_test and predict_proba or decision_function classifier attribute
@@ -35,6 +36,7 @@ def auc_curve_plot(clf, X, y):
     # Plot the precision recall curve
     plot_precision_recall_curve(clf, X, y, ax=ax2)
 
+    
 def auc_curve_plot1(clf, algo_name, X, y):
     '''
     This function accepts y_validate or y_test and predict_proba or decision_function classifier attribute
@@ -64,6 +66,7 @@ def auc_curve_plot1(clf, algo_name, X, y):
     plt.tight_layout()
     plt.show()
 
+    
 def auc_score_proba(clf, X, y):
     '''
     This function accepts a classification model that can estimate probability, X_set and y_set
@@ -85,6 +88,7 @@ def auc_score_proba(clf, X, y):
     y_proba = pd.DataFrame(y_proba, columns=['p_0', 'p_1'])
     score = roc_auc_score(y, y_proba['p_1'])
     return y_proba, score
+
 
 def model_multiple_algos(names, classifiers, X_train, y_train, X_validate, y_validate, X_test, y_test):
     '''

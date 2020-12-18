@@ -5,7 +5,7 @@
 ## About the Project
 
 ## Goals
-The goal of this project is to create a machine learning model that predicts whether users will answer questions correctly.
+The project aims to create a machine learning model that predicts whether users will answer questions correctly.
 
 ## Background
 
@@ -46,27 +46,27 @@ The goal of this project is to create a machine learning model that predicts whe
 | timestamp                   | (int64) The time in milliseconds between this user interaction and the first event completion from the user |
 | user_id                     | (int32) ID code for the user                                                                |
 | content_id                  | (int16) ID Code for the user interaction                                                    |
-| content_type_id             | (int8) 0 if the event was a question being posed to the user, 1 is the event was watching a lecture|
+| content_type_id             |  (int8) 0 if the event was a question prompted to the user, 1 if the event was watching a lecture|
 | task_container_id           | (int16) ID code for the batch of questions or lectures. -1 for lectures                     |
 | user_answer                 | (int8) The user's answer to the question, if any. -1 for lectures                           |
 | answered_correctly          | (int8) If the user responded correctly, if any. -1 for lectures                             |
-| prior_question_elapsed_time | (float32) The average time in milliseconds it took a user to answer each question in the previous question bundle, ignoring any lectures inbetween. Null for a user's first question bundle or lecture. Note: The time is the average time a user took to solve each question in the previous bundle.|
-| prior_question_had_explanation | (bool) Whether or not the user saw an explanation and the correct response(s) after answering the previous question bundle, ignoring any lectures in between. The value is shared across a single question bundle, and is null for a user's first question bundle or lecture. Typically the first several questions a user sees were part of an onboarding diagnostic test where they did not get any feedback. |
+| prior_question_elapsed_time | (float32) The average time in milliseconds it took a user to answer each question in the previous question bundle, ignoring any lectures in-between. Null for a user's first question bundle or lecture. Note: The time is the average time a user took to solve each question in the previous bundle.|
+| prior_question_had_explanation | (bool) Whether or not the user saw an explanation and the correct response(s) after answering the previous question bundle ignoring any lectures in between. The value is shared across a single question bundle and is null for a user's first question bundle or lecture. Typically the first several questions a user sees were part of an onboarding diagnostic test where they did not get any feedback. |
 
 **`lectures.csv`**  metadata for the lectures watched by users as they progress in their education.
 | Feature Name                | Description                                                                                 |
 |-----------------------------|---------------------------------------------------------------------------------------------|
-| lecture_id                  | Foreign key for the train/test content_id column, when the content type is lecture (1).     |
-| part                        | Top level category code for the lecture.                                                    |
+| lecture_id                  | Foreign key for the train/test content_id column, when the content type is a lecture (1).     |
+| part                        | Top-level category code for the lecture.                                                    |
 | tag                         | One tag code for the lecture. The meaning of the tags will not be provided, but these codes are sufficient for clustering the lectures together.  |
 | type_of                     | Brief description of the core purpose of the lecture.                                       |
 
 **`questions.csv`**  metadata for the __questions__ posed to users.
 | Feature Name                | Description                                                                                 |
 |-----------------------------|---------------------------------------------------------------------------------------------|
-| question_id                 | Foreign key for the train/test content_id column, when the content type is question (0).    |
+| question_id                 | Foreign key for the train/test content_id column, when the content-type is question (0).    |
 | bundle_id                   | Code for which questions are served together.                                               |
-| correct_answer              | The answer to the question. Can be compared with the train user_answer column to check if the user was right.  |
+| correct_answer              | The answer to the question. It can be compared with the train user_answer column to check if the user was right.  |
 | part                        | The relevant section of the TOEIC test.                                                    |
 | tags                        | One or more detailed tag codes for the question. The meaning of the tags will not be provided, but these codes are sufficient for clustering the questions together. |
 
@@ -128,14 +128,14 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 
 #### Hypotheses
 **Hypothesis – Answered correctly vs. Question had an explanation**
-> Null hypothesis: Answering a question correctly is independent of whether a question had an explanation.<br>
-> Alternative hypothesis: Answering a question correctly is dependent on whether a question had an explanation.<br>
+> Null hypothesis: Whether a student gets a question right is independent of whether a question had an explanation.<br>
+> Alternative hypothesis: Whether a student gets a question right is dependent on whether a question had an explanation.<br>
 > Test: Chi-Squared Test<br>
 > Results: With a p-value less than alpha, we reject the null hypothesis.
 
 **Hypothesis – Number of lectures a user has watched vs. Average task accuracy**
 > Null hypothesis: There is no linear relationship between the number of lectures a user has watched and their average task accuracy.<br>
-> Alternative hypothesis: : There is a linear relationship between the number of lectures a user has watched and their average task accuracy.<br>
+> Alternative hypothesis: There is a linear relationship between the number of lectures a user has watched and their average task accuracy.<br>
 > Test: Pearson Correlation Test<br>
 > Results: With a p-value less than alpha, we reject the null hypothesis.
 > -	On average, as the number of lectures a user has seen increases, so does their task accuracy.
@@ -149,11 +149,11 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > -	Users who take longer to answer questions tend to have lower overall accuracy and vice versa
 
 **Hypothesis – Average user accuracy vs. Average content accuracy**
-> Null hypothesis: Users with above average accuracy spend the same amount of time or more time on questions with lower-than-average content accuracy than users with average or lower-than-average accuracy.<br>
-> Alternative hypothesis: Users with above average accuracy spend less time on questions with lower-than-average content accuracy than users with average or lower-than-average accuracy.<br>
+> Null hypothesis: Users with above-average accuracy spend the same amount of time or more time on questions with lower-than-average content accuracy than users with average or lower-than-average accuracy.<br>
+> Alternative hypothesis: Users with above-average accuracy spend less time on questions with lower-than-average content accuracy than users with average or lower-than-average accuracy.<br>
 > Test: Two-Sample One-Tailed T-Test<br>
 > Results: With a p-value less than alpha, and t less than 0, we reject the null hypothesis.
-> -	If users with above average accuracy answer questions (difficult and otherwise) more quickly than others users, then they may be more prepared for the content.
+> -	If users with above-average accuracy answer questions (difficult and otherwise) more quickly than other users, then they may be more prepared for the content.
 
 **Feature Selection**
 - Used Recursive Feature Elimination to select the top 5 features: `prior_question_had_explanation`, `user_acc_mean`, `mean_content_accuracy`, `mean_task_accuracy`, and `mean_priortime_accuracy_scaled`.
@@ -165,7 +165,7 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > 4. prior_question_had_explanation
 
 ### Model
-First, a baseline model was created to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
+First, we created a baseline model was to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
 Models evaluated on train, validate, and the test set were:
 -	Logistic Regression
 -	Decision Tree
@@ -177,9 +177,9 @@ Models evaluated on train, validate, and the test set were:
 -	Neural Net
 
 ### Final Model
-Random Forest was the final model selected. It performed the best with an AUC score of .692. Emphasis was placed on reducing False Positives. A False Positive means our model predicted that a user answered a question correctly, when their answer was actually incorrect.
+Our Random Forest was the best performing model, with an AUC score of .692. AUC is a measure of True Positives and Falso Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicts a student responded to a question correctly when their answer was incorrect. An AUC score can range between 0 and 1, where the higher the number, the more accurate a classification model is.
 
-> A Random Forest algorithm creates a large number of individual decision trees (models) and combines them to produce a predictive model.
+> A Random Forest algorithm creates many individual decision trees (models) and combines them to produce a predictive model.
 
 <p align="center">
 <img src="./images/random_forest_visual.png"
@@ -187,13 +187,13 @@ Random Forest was the final model selected. It performed the best with an AUC sc
 </p>
 	
 ### Conclusions
-#### What was best model?
+#### What was the best model?
 - Random Forest: AUC score of .692
 
 ### Future Investigations
 #### What are your next steps?
 - Use this predictive model on Riiid's other educational programs.
-- Explore more features and different modeling like xgboost and lightlgbm.
+- Explore more features and different classification models like xgboost and lightlgbm.
 - Improve model to predict new student performance.
 
 ## How to Reproduce

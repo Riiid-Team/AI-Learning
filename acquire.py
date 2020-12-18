@@ -1,6 +1,5 @@
 # Acquire File
 # Imports 
-
 import pandas as pd
 import numpy as np
 import random
@@ -32,7 +31,7 @@ def get_riiid_data():
         # Dictionaries to cast column dtypes.
         train_dtypes, lecture_dtypes, question_dtypes = datatype_converter()
         
-        # Acquire data
+        # Load each dataset
         df_train = pd.read_csv('train.csv', dtype=train_dtypes, usecols=[1,2,3,4,5,6,7,8,9])
         df_lectures = pd.read_csv('lectures.csv', dtype=lecture_dtypes)
         df_questions = pd.read_csv('questions.csv', dtype=question_dtypes)
@@ -43,7 +42,7 @@ def get_riiid_data():
         # Left join df_merged and df_questions using `content_id` as the primary key.
         df_data = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
         
-        # Change the data types of numeric columns.
+        # Cast the data types of numeric columns.
         df_data.lecture_id = df_data.lecture_id.astype('Int16')
         df_data.tag = df_data.tag.astype('Int8')
         df_data.part_x = df_data.part_x.astype('Int8')
@@ -54,8 +53,8 @@ def get_riiid_data():
 
         # Prefix part names with the originating dataframe name.
         df_data.rename(columns={'part_x': 'lecture_part',
-                                    'part_y': 'question_part'},
-                           inplace=True)
+                                'part_y': 'question_part'},
+                       inplace=True)
         
         # Cache the merged dataframe.
         df_data.to_csv('riiid_data.csv', index=False)
@@ -66,39 +65,43 @@ def get_riiid_data():
 
 def datatype_converter():
     '''
-    This function returns a dictionary of column names and data types to convert.
+    This function returns three dictionaries of column names in
+    train.csv, lectures.csv, and questions.csv with data types to convert.
     '''
+    # Column names in train.csv
     train_data_types_dict = {
-    'timestamp': np.int64,
-    'user_id': np.int32,
-    'content_id': np.int16,
-    'content_type_id': np.int16,
-    'task_container_id' : np.int16,
-    'user_answer' : np.int8,
-    'answered_correctly': np.int8,
-    'prior_question_elapsed_time': np.float16
+        'timestamp': np.int64,
+        'user_id': np.int32,
+        'content_id': np.int16,
+        'content_type_id': np.int16,
+        'task_container_id' : np.int16,
+        'user_answer' : np.int8,
+        'answered_correctly': np.int8,
+        'prior_question_elapsed_time': np.float16
     }
     
+    # Column names in lectures.csv
     lectures_data_types_dict = {
-    'lecture_id' : np.int16,
-    'tag' : np.int8,
-    'part' : np.int8
+        'lecture_id' : np.int16,
+        'tag' : np.int8,
+        'part' : np.int8
     }
 
+    # Column names in questions.csv
     questions_data_types_dict = {
-    'question_id' : np.int16,
-    'bundle_id' : np.int16,
-    'part' : np.int8
+        'question_id' : np.int16,
+        'bundle_id' : np.int16,
+        'part' : np.int8
     }
     
     return train_data_types_dict, lectures_data_types_dict, questions_data_types_dict
 
 
-###################### Acquire SAMPLED Riiid Data ########################
+###################### Create a sampled dataset of train.csv ########################
 def sampled_riiid_data():
     '''
     This function selects a random sample of 100_000 users from the `train.csv` dataset.
-    Returns a dataframe of with data from 100_000 users.
+    Returns a dataframe of data from 100_000 users.
     
     
     Parameters
@@ -119,7 +122,7 @@ def sampled_riiid_data():
         # Load `train.csv` data
         df = pd.read_csv('train.csv', dtype=train_dtypes, usecols=[1,2,3,4,5,6,7,8,9])
 
-        # Randomly select 50_000 users
+        # Randomly select 100_000 users
         sampled_ids = sampled_users(df)
 
         # Filter the dataframe for users
@@ -137,6 +140,11 @@ def sampled_users(df):
     This function accepts data from `train.csv` and
     returns a random sample of 100_000 user_ids.
     '''
+    random.seed(123)
+    
+    # Create a list of all user ids
     user_ids = list(df['user_id'].unique())
+    
+    # Select a random sample of 100_000 users
     sampled_ids = random.sample(user_ids, 100_000)
     return sampled_ids

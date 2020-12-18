@@ -28,6 +28,7 @@ def stats_content_id(df):
 
     return content_stats.round(2)
 
+
 def stats_task_container_id(df):
     '''
     To compute the students' historic performance on tasks
@@ -39,6 +40,7 @@ def stats_task_container_id(df):
 
     return task_stats.round(2)
 
+
 def mean_tagcount_accuracy(df):
     '''
     To compute the mean accuracy according to the counts of the tags in a question
@@ -46,12 +48,14 @@ def mean_tagcount_accuracy(df):
     tagcount_accuracy = df.groupby('tag_count').answered_correctly.mean().round(2).rename('mean_tagcount_accuracy')
     return tagcount_accuracy
 
+
 def mean_tag_accuracy(df):
     '''
     To compute the mean accuracy according to the tag of a question
     '''
     tags_accuracy = df.groupby('tags').answered_correctly.mean().round(2).rename('mean_tags_accuracy')
     return tags_accuracy
+
 
 def tag_features(train, validate, test):
     '''
@@ -71,6 +75,7 @@ def tag_features(train, validate, test):
     test = test.merge(tags_accuracy, how='left', on='tags')
 
     return train, validate, test
+
 
 def merge_with_stats_train(df_train):
     '''
@@ -97,6 +102,7 @@ def merge_with_stats_valortest(df_train, df_val_or_test):
 
     return val_or_test
 
+
 def handle_null(df):
     '''
     This function is going to fill the missing values 
@@ -108,10 +114,12 @@ def handle_null(df):
     df.prior_question_elapsed_time.fillna(0, inplace = True)
     return df
 
+
 def handle_inf(df):
     m = df.prior_question_elapsed_time.apply(lambda i: 0 if i == np.inf else i)
     df.prior_question_elapsed_time = m
     return df
+
 
 def sam_train_features(df):
     """
@@ -153,6 +161,7 @@ def sam_train_features(df):
 
     return df
 
+
 def sam_valtest_features(df, val_or_test):
     """
     Accepts train df along with validate or test df. Prepares data with several changes outlined in notebook
@@ -178,6 +187,7 @@ def sam_valtest_features(df, val_or_test):
     # returning df
     return val_or_test
 
+
 def drop_columns(df):
     """
     Accepts df and drops various columns that are not needed for modeling.
@@ -187,6 +197,7 @@ def drop_columns(df):
     df = df.drop(columns=cols)
     return df
 
+
 def drop_lecture_rows(df):
     '''
     Drop the lecture rows from the dataframe.
@@ -195,12 +206,14 @@ def drop_lecture_rows(df):
     df = df[mask]
     return df
 
+
 def fill_nulls(df):
     '''
     Fills nulls with .5
     '''
     df.fillna(0.5, inplace=True)
     return df
+
 
 def scale(train, validate, test, columns_to_scale):
     '''
@@ -231,6 +244,7 @@ def scale(train, validate, test, columns_to_scale):
     test.drop(columns=columns_to_scale, inplace=True)
     
     return train, validate, test
+
 
 def boolean_to_num(df):
     """
@@ -294,7 +308,8 @@ def part_bundle_features(train, validate, test):
 
     return train_set, validate_set, test_set
 
-####### COMPLETE PREP FUNCTION ########
+
+#################################### COMPLETE PREP FUNCTION ########################################
 
 def prep_riiid(df_train, df_validate, df_test):
     """

@@ -7,19 +7,17 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
 from sklearn.feature_selection import SelectKBest, f_classif
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.feature_selection import RFE
 
-
+################################# Riiid Visualizations ###########################################
 def question_explanation_graph(df):
     '''
     This function accepts a training dataset and returns
-    a plot of percentage questions of questions that are correct.
+    a plot of the percentage questions answered correctly v. incorrectly.
     
     Two Subgroups
     -------------
-    Questions that had explanations: % answered correctly, % answered incorrectly
-    Questions that did not have explanations: % answered correctly, % answered incorrectly    
+    Questions that have explanations: % answered correctly, % answered incorrectly
+    Questions that do not have explanations: % answered correctly, % answered incorrectly    
     '''
     # Answered Correctly vs Prior Question Had Explanation
     prior_question = df.groupby(['question_had_explanation', 'answered_correctly']).agg({'answered_correctly': ['count']})
@@ -39,53 +37,53 @@ def question_explanation_graph(df):
     qwe_incorrect = questions_with_explanations.iloc[0]/total_questions_with_explanations
     qwe_correct = questions_with_explanations.iloc[1]/total_questions_with_explanations
 
+    # Create a dataframe of percentages.
     df = pd.DataFrame({
         'Question_had_an_explanation': ['Incorrect', 'Correct'],
         'Explanation': [qwe_incorrect, qwe_correct],
         'No Explanation': [qwoe_incorrect, qwoe_correct]
     })
+    
+    # Melt the column
     tidy = df.melt(id_vars='Question_had_an_explanation')
     
     # Plotting
     sns.set_context('talk')
     plt.figure(figsize=(13, 7))
     sns.barplot(x='variable', y='value', hue='Question_had_an_explanation', data=tidy, palette=['#d55e00', '#009e73'], ec='black')
-    plt.title("Students Performs Better On Questions With Explanations",fontsize=20) 
+    plt.title("Students Perform Better On Questions With Explanations",fontsize=20) 
     plt.legend() 
     plt.xlabel('')
-    plt.ylabel('Percentage',fontsize=15)
+    plt.ylabel('%',fontsize=15)
     plt.ylim(0, 1)
-    plt.yticks(np.linspace(0,1,11))
+    plt.yticks(np.linspace(0,1,5))
     plt.show()
 
-
-def rfe_ranker(train):
+    
+###################################### Feature Selection ############################################
+def rfe_ranker(X_train, y_train):
     """
-    Accepts dataframe. Uses Recursive Feature Elimination to rank the given df's features in order of their usefulness in
+    Accepts dataframe. Uses Recursive Feature Elimination to rank features in order of importance to
     predicting logerror with a logistic regression model.
     """
-    non_target_vars = ['question_had_explanation', 'user_acc_mean','mean_content_accuracy', 'mean_task_accuracy',
-    'user_lectures_running_total_scaled', 'avg_user_q_time_scaled']
     
-    target_var = ['answered_correctly']
-    
-    # creating logistic regression object
+    # Create a Logistic Regression object
     lr = LogisticRegression()
 
-    # fitting logistic regression model to features 
-    lr.fit(train[non_target_vars], train[target_var])
+    # Fit the model with the training data
+    lr.fit(X_train, y_train)
 
     # creating recursive feature elimination object and specifying to only rank 1 feature as best
     rfe = RFE(lr, 1)
 
     # using rfe object to transform features 
-    rfe.fit_transform(train[non_target_vars], train[target_var])
+    rfe.fit_transform(X_train, y_train)
 
     # creating mask of selected feature
     feature_mask = rfe.support_
 
-    # creating train df for rfe object 
-    rfe_train = train[non_target_vars]
+    # creating train df for rfe object
+    rfe_train = X_train
 
     # creating ranked list 
     feature_ranks = rfe.ranking_
@@ -130,11 +128,14 @@ def KBest_ranker(X, y, n):
     
     return df_features[:n]
 
+
 def feature_over_time(feature, train, agg_method):
+    '''
+    Accepts 
+    '''
     feature_on_time = pd.DataFrame(train.groupby("timestamp")[feature].agg([agg_method]))
     feature_on_time.reset_index(inplace=True)
     feature_on_time.rename(columns={agg_method:feature}, inplace=True)
-    
     feature_on_time['seconds'] = (feature_on_time.timestamp/1000).round(0)
     feature_on_time['minutes'] = (feature_on_time.timestamp/(1000*60)).round(0)
     feature_on_time['hours'] = (feature_on_time.timestamp/(1000*60*60)).round(0)
