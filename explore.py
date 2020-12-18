@@ -63,39 +63,40 @@ def question_explanation_graph(df):
 ###################################### Feature Selection ############################################
 def rfe_ranker(X_train, y_train):
     """
-    Accepts dataframe. Uses Recursive Feature Elimination to rank features in order of importance to
+    Accepts dataframe. Uses Recursive Feature Elimination to rank the given df's features in order of their usefulness in
     predicting logerror with a logistic regression model.
     """
     
     # Create a Logistic Regression object
     lr = LogisticRegression()
 
-    # Fit the model with the training data
+    # Fit the object with the training set
     lr.fit(X_train, y_train)
 
-    # creating recursive feature elimination object and specifying to only rank 1 feature as best
+    # Create a Recursive Feature Elimination object. Rank 1 feature as the most important.
     rfe = RFE(lr, 1)
 
-    # using rfe object to transform features 
+    # Fit the RFE object with the training data to 
     rfe.fit_transform(X_train, y_train)
 
     # creating mask of selected feature
     feature_mask = rfe.support_
 
-    # creating train df for rfe object
-    rfe_train = X_train
-
     # creating ranked list 
     feature_ranks = rfe.ranking_
 
     # creating list of feature names
-    feature_names = rfe_train.columns.tolist()
+    feature_names = X_train.columns.tolist()
 
     # create df that contains all features and their ranks
-    rfe_ranks_df = pd.DataFrame({'Feature': feature_names, 'Rank': feature_ranks})
+    rfe_ranks_df = pd.DataFrame({'feature': feature_names,
+                                 'rank': feature_ranks})
 
     # return df sorted by rank
-    return rfe_ranks_df.sort_values('Rank')
+    rfe_ranked_featuers = rfe_ranks_df.sort_values('rank').reset_index(drop=True)
+    
+    return rfe_ranked_featuers.head()
+
 
 
 def KBest_ranker(X, y, n):

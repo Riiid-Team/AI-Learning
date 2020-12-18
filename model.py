@@ -89,6 +89,54 @@ def auc_score_proba(clf, X, y):
     score = roc_auc_score(y, y_proba['p_1'])
     return y_proba, score
 
+###################################### Evaluation Functions #########################################
+def model_multiple_algos_train(names, classifiers, X_train, y_train):
+    '''
+    This function accetps a list of classifiers, feature dataset and target dataset
+    and return the auc scores.
+    The order of the names should match the order of the classifiers
+    Parameter
+    ----------
+    names: a list of the names of the classifiers that will be tested.
+    classifiers: a list of classifier objects.
+    X_train: features in the train dataset
+    y_train: target variable in the train dataset
+    X_validate: features in the validate dataset
+    y_validate: target variable in the validate dataset
+    X_test: features in the test dataset
+    y_test: target variable in the test dataset
+    Example
+    ----------
+    names: ["logistic Regression", "Decision Tree"]
+    classifiers: [LogisticRegression(), DecisionTreeClassifier(max_depth=3)]
+    all the datasets ready for modeling
+    Return
+    ----------
+    A dataframe of auc scores associated with the classification algorithm and the dataset it used. 
+    '''
+    
+    metrics = pd.DataFrame()
+
+    for name, clf in zip(names, classifiers):
+        
+        # Set up a progress indicator        
+        print(f"{name}") 
+        
+        # Fit on the train dataset        
+        clf = clf.fit(X_train, y_train)
+        
+        # Compute the AUC score on train
+        y_proba, score = auc_score_proba(clf, X_train, y_train)
+        d = {"Algo": name,
+             "dataset": "train",
+             "AUC score": score}
+        
+        metrics = metrics.append(d, ignore_index=True)
+        
+        # Show the completeness of the modeling
+        print(f"{name} has completed")
+             
+    return metrics
 
 def model_multiple_algos(names, classifiers, X_train, y_train, X_validate, y_validate, X_test, y_test):
     '''
