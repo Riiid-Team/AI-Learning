@@ -166,13 +166,30 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > -	If users with above-average accuracy answer questions (difficult and otherwise) more quickly than other users, then they may be more prepared for the content.
 
 **Feature Selection**
-- Used Recursive Feature Elimination to select the top 5 features: `prior_question_had_explanation`, `user_acc_mean`, `mean_content_accuracy`, `mean_task_accuracy`, and `mean_priortime_accuracy_scaled`.
-- Used SelectKBest to select the top 5 features: `mean_content_accuracy`,`user_acc_mean`,`mean_task_accuracy`,`avg_user_q_time_scaled`, `prior_questoin_had_explanation`.
-- We selected the 4 features that both lists had in common.
-> 1. mean_content_accuracy
+- Used SelectKBest to select the top 5 features:
+
+| feature                             | rank |
+| :---------------------------------  |  :-- |
+| `mean_container_part_accuracy`      |   1  |
+| `user_acc_mean`                     |   2  |
+| `mean_task_accuracy`                |   3  |
+| `user_lectures_running_total_scaled`|   4  |
+| `mean_content_accuracy`             |   5  |
+
+- Used Recursive Feature Elimination to select the top 5 features:
+
+| feature                             | rank |
+| :---------------------------------  |  :-- |
+| `mean_container_part_accuracy`      |   1  |
+| `mean_content_accuracy`             |   2  |
+| `mean_bundle_accuracy`              |   3  |
+| `user_acc_mean`                     |   4  |
+| `mean_content_accuracy`             |   5  |
+
+- The 3 features that both lists had in common.
+> 1. mean_container_part_accuracy
 > 2. user_acc_mean
-> 3. mean_task_accuracy
-> 4. prior_question_had_explanation
+> 3. mean_content_accuracy
 
 ### Model
 First, we created a baseline model was to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
