@@ -137,6 +137,12 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > Test: Chi-Squared Test<br>
 > Results: With a p-value less than alpha, we reject the null hypothesis.
 
+**Hypothesis – Answered correctly vs. Part**
+> Null hypothesis: Whether a user answers a question correctly is independent of the type of question being asked.<br>
+> Alternative hypothesis: Whether a user answers a question correctly is dependent upon the type of question being asked.<br>
+> Test: Chi-Squared Test<br>
+> Results: With a p-value less than alpha, we reject the null hypothesis.
+
 **Hypothesis – Number of lectures a user has watched vs. Average task accuracy**
 > Null hypothesis: There is no linear relationship between the number of lectures a user has watched and their average task accuracy.<br>
 > Alternative hypothesis: There is a linear relationship between the number of lectures a user has watched and their average task accuracy.<br>
