@@ -77,8 +77,12 @@ The project aims to create a machine learning model that predicts whether users 
 | user_acc_mean               | The number of questions a user answered correctly divided by all questions they've answered |
 | user_lectures_running_total | The running total of lectures a user has watched at a given timestamp                       |
 | avg_user_q_time             | The average amount of time a user spends on a question                                      |
+| mean_bundle_accuracy        | The average accuracy of a bundle of questions                                               |
+| mean_container_part_accuracy| The average accuracy of a bundle of questions for a specific part of the TOEIC test         |
 | mean_content_accuracy       | The number of questions a user answered correctly divided by all questions they've answered in different content/topics|
-| mean_task_accuracy          | The average accuracy for a given task                                                       |
+| mean_tagcount_accuracy      | The number of tags linked to a question                                                     |
+| mean_tags_accuracy          | The average accuracy for questions that share the same number of tags                       |
+| mean_task_accuracy          | The average accuracy of a specific content_id                                               |
 | median_content_accuracy     | The median accuracy for a specific content type                                             |
 | median_tesk_accuracy        | The median accuracy for a task                                                              |
 | q_time                      | The amount of time a user spent on the previous question                                    |
@@ -167,17 +171,13 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 ### Model
 First, we created a baseline model was to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
 Models evaluated on train, validate, and the test set were:
--	Logistic Regression
--	Decision Tree
+- Logistic Regression
 - Random Forest
-- AdaBoost
 - Gradient Boost
--	K-Nearest Neighbors
--	Naive Bayes
--	Neural Net
+
 
 ### Final Model
-Our Random Forest was the best performing model, with an AUC score of .692. AUC is a measure of True Positives and Falso Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicts a student responded to a question correctly when their answer was incorrect. An AUC score can range between 0 and 1, where the higher the number, the more accurate a classification model is.
+Our Random Forest was the best performing model, with an AUC score of .692. AUC is a measure of True Positives and False Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicted a student responded to a question correctly when their answer was incorrect. An AUC score ranges between 0 and 1, where the higher the number, the more accurate a classification model is.
 
 > A Random Forest algorithm creates many individual decision trees (models) and combines them to produce a predictive model.
 
