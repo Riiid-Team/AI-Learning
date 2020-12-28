@@ -11,52 +11,69 @@ from sklearn.feature_selection import SelectKBest, f_classif
 ################################# Riiid Visualizations ###########################################
 def question_explanation_graph(df):
     '''
-    This function accepts a training dataset and returns
-    a plot of the percentage questions answered correctly v. incorrectly.
-    
-    Two Subgroups
-    -------------
-    Questions that have explanations: % answered correctly, % answered incorrectly
-    Questions that do not have explanations: % answered correctly, % answered incorrectly    
+    This function accepts the training dataset
+    Returns a graph with the percentage of questions, with and without explanations,
+    answered correctly for parts 1-7 of the TOEIC test.
     '''
-    # Answered Correctly vs Prior Question Had Explanation
-    prior_question = df.groupby(['question_had_explanation', 'answered_correctly']).agg({'answered_correctly': ['count']})
     
-    questions_without_explanations = prior_question.iloc[:,0][:2]
-    questions_with_explanations = prior_question.iloc[:,0][2:]
-    
-    # total number of questions with and without explanations
-    total_questions_without_explanations = sum(questions_without_explanations)
-    total_questions_with_explanations = sum(questions_with_explanations)
+    part_explanation_acc = df.groupby(['part', 'question_had_explanation']).answered_correctly.mean()
+    part_explanation_acc = pd.DataFrame(part_explanation_acc).reset_index()
+    part_explanation_acc['part'] = part_explanation_acc.part.map({1: 'Photographs', 
+                                                                  2: 'Question Response', 
+                                                                  3: "Conversations", 
+                                                                  4: "Talks(Narration)", 
+                                                                  5: "Incomplete Sentences", 
+                                                                  6: "Text Completion", 
+                                                                  7: "Passages"})
+    part_explanation_acc
 
-    # questions without explanations
-    qwoe_incorrect = questions_without_explanations.iloc[0]/total_questions_without_explanations
-    qwoe_correct = questions_without_explanations.iloc[1]/total_questions_without_explanations
+    part_explanation_acc['sorting'] = [1,1,2,2,3,3,5,5,7,7,6,6,4,4]
+    part_explanation_acc = part_explanation_acc.sort_values(by='sorting', ascending=False)
 
-    # questions with explanations
-    qwe_incorrect = questions_with_explanations.iloc[0]/total_questions_with_explanations
-    qwe_correct = questions_with_explanations.iloc[1]/total_questions_with_explanations
-
-    # Create a dataframe of percentages.
-    df = pd.DataFrame({
-        'Question_had_an_explanation': ['Incorrect', 'Correct'],
-        'Explanation': [qwe_incorrect, qwe_correct],
-        'No Explanation': [qwoe_incorrect, qwoe_correct]
-    })
-    
-    # Melt the column
-    tidy = df.melt(id_vars='Question_had_an_explanation')
-    
-    # Plotting
     sns.set_context('talk')
-    plt.figure(figsize=(13, 7))
-    sns.barplot(x='variable', y='value', hue='Question_had_an_explanation', data=tidy, palette=['#d55e00', '#009e73'], ec='black')
-    plt.title("Students Perform Better On Questions With Explanations",fontsize=20) 
-    plt.legend() 
-    plt.xlabel('')
-    plt.ylabel('%',fontsize=15)
-    plt.ylim(0, 1)
-    plt.yticks(np.linspace(0,1,5))
+
+    plt.figure(figsize=(16, 9))
+    sns.barplot(data=part_explanation_acc, x='answered_correctly', y='part', hue="question_had_explanation", 
+                palette=['#d55e00', '#009e73'], ec='black')
+    plt.xlabel("Percent of Correct Answers")
+    plt.legend(bbox_to_anchor=(1, 1), title ='Had Explanation')
+    plt.title("Students Perform Better with an Explanation",fontweight='bold', fontsize=23)
+    plt.ylabel("")
+    fmt = [f'{i:0.0%}' for i in np.linspace(0, 1, 11)] # Format you want the ticks, e.g. '40%'
+    plt.xticks(np.linspace(0, 1, 11), labels=fmt)
+    plt.show()
+
+    
+def user_lectures_graph(df):
+    '''
+    This function accepts the training dataset
+    Returns a graph of sampled users with the number of lectures they've watched
+    against their accuracy.
+    '''
+    fig = plt.figure(figsize=(14, 8))
+    sample = df.sample(1000)
+    x = sample.user_lectures_running_total
+    y = sample.cum_accuracy
+    plt.scatter(x, y, marker='o',color='#0080ff')
+    plt.title("Students Benefit Little From Lectures", fontsize=20)
+    plt.xlabel("Number of Lectures Students Watched", fontsize=15)
+    plt.ylabel("Percent of Correct Answers", fontsize=15)
+    plt.xticks(rotation=0, fontsize=15)
+    plt.yticks(rotation=0, fontsize=15)
+    plt.axhline(0.53, xmin=0, xmax=250, color='black', linestyle='-.', 
+                label='Mean of Percent of Correct Answers')
+    plt.axvline(4.1, ymin=0, ymax=1.0, color='black', linestyle='dotted', 
+                label='Average of Lectures Students Watched')
+    fmt = [f'{i:0.0%}' for i in np.linspace(0, 1, 11)] # Format you want the ticks, e.g. '40%'
+    plt.yticks(np.linspace(0, 1, 11), labels=fmt)
+
+    z = np.polyfit(x, y, 1)
+    p = np.poly1d(z)
+    plt.plot(x,p(x),"r--", label='Best Fit Line')
+
+    plt.text(210,0.75, f'Slope = {p[1]:0.0}', fontsize=12)
+
+    plt.legend(bbox_to_anchor=(1, 1), fontsize=12)
     plt.show()
 
     

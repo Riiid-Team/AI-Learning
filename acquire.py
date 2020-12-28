@@ -11,9 +11,7 @@ random.seed(123)
 def get_riiid_data():
     '''
     This function acquires and merges `train`, `lectures`, and `questions` datasets and
-    returns a dataframe.
-    
-    The merged dataset only contains HALF of users.
+    Returns a dataframe.
 
     Parameters
     ----------
@@ -98,7 +96,7 @@ def datatype_converter():
 
 
 ###################### Create a sampled dataset of train.csv ########################
-def sampled_riiid_data():
+def sampled_riiid_data(n=100_000):
     '''
     This function selects a random sample of 100_000 users from the `train.csv` dataset.
     Returns a dataframe of data from 100_000 users.
@@ -106,45 +104,69 @@ def sampled_riiid_data():
     
     Parameters
     ----------
-    None
+    n : integer, default 100_000
+        The number of unique users to sample from the dataset.
     
     Returns
     -------
     sampled_data : pandas.core.frame.DataFrame
         A pandas dataframe of 100,000 randomly selected users.
     '''
-    train_dtypes, _, _ = datatype_converter()
+    # Load dtype conversions
+    train_dtypes, lecture_dtypes, question_dtypes = datatype_converter()
     
-    if os.path.isfile('sampled_train.csv'):
-        # Return the cached file
-        return pd.read_csv('sampled_train.csv', index_col=False, dtype=train_dtypes)
-    else:   
-        # Load `train.csv` data
-        df = pd.read_csv('train.csv', dtype=train_dtypes, usecols=[1,2,3,4,5,6,7,8,9])
+    # Load dataset and convert column dtypes.
+    df_train = pd.read_csv('train.csv', dtype=train_dtypes, usecols=[1,2,3,4,5,6,7,8,9])
+    df_lectures = pd.read_csv('lectures.csv', dtype=lecture_dtypes)
+    df_questions = pd.read_csv('questions.csv', dtype=question_dtypes)
 
-        # Randomly select 100_000 users
-        sampled_ids = sampled_users(df)
 
-        # Filter the dataframe for users
-        sampled_data = df.loc[df['user_id'].isin(sampled_ids)]
+    # Randomly select 100_000 users
+    sampled_ids = sampled_users(df_train, sample_size=n)
 
-        # Cache local file of sampled data.
-        sampled_data.to_csv('sampled_train.csv', index=False)
+    # Filter the dataframe for users
+    df_sampled = df_train.loc[df_train['user_id'].isin(sampled_ids)]
+
     
-        # Return the dataframe
-        return sampled_data
+    # Left join df_train and df_lectures using `content_id` as the primary key.
+    df_merged = df_sampled.merge(df_lectures, left_on='content_id', right_on='lecture_id', how='left')
+
+    # Left join df_merged and df_questions using `content_id` as the primary key.
+    df_data = df_merged.merge(df_questions, left_on='content_id', right_on='question_id', how='left')
+
+    # Cast the data types of numeric columns.
+    df_data.lecture_id = df_data.lecture_id.astype('Int16')
+    df_data.tag = df_data.tag.astype('Int8')
+    df_data.part_x = df_data.part_x.astype('Int8')
+    df_data.part_y = df_data.part_y.astype('Int8')
+    df_data.question_id = df_data.question_id.astype('Int16')
+    df_data.bundle_id = df_data.bundle_id.astype('Int16')
+    df_data.lecture_id = df_data.lecture_id.astype('Int32')
+
+    # Prefix part names with the originating dataframe name.
+    df_data.rename(columns={'part_x': 'lecture_part',
+                            'part_y': 'question_part'},
+                   inplace=True)
+
+    # Cache the merged dataframe.
+    df_data.to_csv('sampled_riiid_data.csv', index=False)
+
+    # Return the dataset.
+    return df_data
 
 
-def sampled_users(df):
+
+def sampled_users(df, sample_size=100_000):
     '''
     This function accepts data from `train.csv` and
-    returns a random sample of 100_000 user_ids.
+    returns a list of 100_000 randomly sampled user ids.
     '''
+    # Set a random seed for reproducibility.
     random.seed(123)
     
-    # Create a list of all user ids
-    user_ids = list(df['user_id'].unique())
+    # user_ids with 10 or more interactions
+    user_ids = df.user_id.value_counts()[df.user_id.value_counts() > 9].index.tolist()
     
     # Select a random sample of 100_000 users
-    sampled_ids = random.sample(user_ids, 100_000)
+    sampled_ids = random.sample(user_ids, sample_size)
     return sampled_ids
