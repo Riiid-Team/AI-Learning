@@ -4,8 +4,8 @@
 
 ## About the Project
 
-## Goals
-The project aims to create a machine learning model that predicts whether users will answer questions correctly.
+## Goal
+Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
 
 ## Background
 
@@ -165,44 +165,18 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > Results: With a p-value less than alpha, and t less than 0, we reject the null hypothesis.
 > -	If users with above-average accuracy answer questions (difficult and otherwise) more quickly than other users, then they may be more prepared for the content.
 
-**Feature Selection**
-- Used SelectKBest to select the top 5 features:
-
-| feature                             | rank |
-| :---------------------------------  |  :-- |
-| `mean_container_part_accuracy`      |   1  |
-| `user_acc_mean`                     |   2  |
-| `mean_task_accuracy`                |   3  |
-| `user_lectures_running_total_scaled`|   4  |
-| `mean_content_accuracy`             |   5  |
-
-- Used Recursive Feature Elimination to select the top 5 features:
-
-| feature                             | rank |
-| :---------------------------------  |  :-- |
-| `mean_container_part_accuracy`      |   1  |
-| `mean_content_accuracy`             |   2  |
-| `mean_bundle_accuracy`              |   3  |
-| `user_acc_mean`                     |   4  |
-| `mean_content_accuracy`             |   5  |
-
-- The 3 features that both lists had in common.
-> 1. mean_container_part_accuracy
-> 2. user_acc_mean
-> 3. mean_content_accuracy
-
 ### Model
 First, we created a baseline model was to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
 Models evaluated on train, validate, and the test set were:
 - Logistic Regression
 - Random Forest
-- Gradient Boost
+- LGBM
 
 
 ### Final Model
-Our Random Forest was the best performing model, with an AUC score of .692. AUC is a measure of True Positives and False Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicted a student responded to a question correctly when their answer was incorrect. An AUC score ranges between 0 and 1, where the higher the number, the more accurate a classification model is.
+Our LGBM model performed the best, with an AUC score of .744. AUC is a measure of True Positives and False Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicted a student responded to a question correctly when their answer was incorrect. An AUC score ranges between 0 and 1, where the higher the number, the more accurate a classification model is.
 
-> A Random Forest algorithm creates many individual decision trees (models) and combines them to produce a predictive model.
+> The model begins by creating a decision tree that asks a series of questions, then makes predictions based on the responses. After the tree is complete, the model transfers what it learned from the first tree to a new tree. This cycle repeats many times. Each tree attempts to reduce the errors of its predecessor. The end result being a tree that vastly improves the predictive capability of the model.
 
 <p align="center">
 <img src="./images/random_forest_visual.png"
@@ -211,13 +185,13 @@ Our Random Forest was the best performing model, with an AUC score of .692. AUC 
 	
 ### Conclusions
 #### What was the best model?
-- Random Forest: AUC score of .692
+- Random Forest: AUC score of .744
 
 ### Future Investigations
 #### What are your next steps?
 - Use this predictive model on Riiid's other educational programs.
-- Explore more features and different classification models like xgboost and lightlgbm.
-- Improve model to predict new student performance.
+- Explore more features and different classification models like xgboost.
+- Improve model to predict new student performance more effectively.
 
 ## How to Reproduce
 All files are reproducible and available for download and use.
