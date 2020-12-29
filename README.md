@@ -185,7 +185,7 @@ Our LGBM model performed the best, with an AUC score of .744. AUC is a measure o
 	
 ### Conclusions
 #### What was the best model?
-- Random Forest: AUC score of .744
+- LightGBM: AUC score of .744
 
 ### Future Investigations
 #### What are your next steps?
