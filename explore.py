@@ -21,7 +21,7 @@ def question_explanation_graph(df):
     part_explanation_acc['part'] = part_explanation_acc.part.map({1: 'Photographs', 
                                                                   2: 'Question Response', 
                                                                   3: "Conversations", 
-                                                                  4: "Talks(Narration)", 
+                                                                  4: "Narration", 
                                                                   5: "Incomplete Sentences", 
                                                                   6: "Text Completion", 
                                                                   7: "Passages"})
