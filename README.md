@@ -180,7 +180,7 @@ Our LGBM model performed the best, with an AUC score of .744. AUC is a measure o
 
 <p align="center">
 <img src="./images/bgdt.JPG"
-	title="Gradient Boosting Model" width="650" height="500">
+	title="Gradient Boosting Model" width="650" height="450">
 </p>
 	
 ### Conclusions
