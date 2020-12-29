@@ -106,10 +106,10 @@ Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
 - Does the number of lectures a user watch impact their accuracy?
 
 ## Project Steps
-### Acquire
+### 1.Acquire
 Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-prediction/data). The data is stored in three separate files: lectures.csv, questions.csv, and train.csv. The primary dataset is train.csv, which has 100+ million user interactions from 390,000+ users. We used a random sample of 100K users for our analysis. The original 10 features describe the type of question, the time it took to answer, and whether the user’s response was correct.
 
-### Prepare
+### 2.Prepare
 **Missing Values**
 - Filled missing boolean values in `question_had_explanation` with False. Missing values indicated that the question did not have an explanation or the user viewed a lecture.
 - Filled missing values in `prior_question_elapsed_time` with 0. Missing values indicated that a user viewed a lecture before answering the first question in a bundle of questions.
@@ -124,7 +124,7 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 **Preprocessing**
 - Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
 
-### Explore
+### 3.Explore
 - Used scatterplots and histograms to visualize interactions between features and the target variable.
 - Performed hypothesis tests to find statistically significant relationships between features.
 
@@ -163,7 +163,7 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > Results: With a p-value less than alpha, and t less than 0, we reject the null hypothesis.
 > -	If users with above-average accuracy answer questions (difficult and otherwise) more quickly than other users, then they may be more prepared for the content.
 
-### Model
+### 4.Model
 First, we created a baseline model was to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
 Models evaluated on train, validate, and the test set were:
 - Logistic Regression
@@ -181,7 +181,7 @@ Our LGBM model performed the best, with an AUC score of .744. AUC is a measure o
 	title="Gradient Boosting Model" width="650" height="350">
 </p>
 	
-### Conclusions
+### 5.Conclusions
 #### What was the best model?
 - LightGBM: AUC score of .744
 
