@@ -1,11 +1,9 @@
 [![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/Riiid!%20Project.png "Header")](https://www.kaggle.com/c/riiid-test-answer-prediction/overview/description)
 
-# Riiid AIEd Challenge 2020
+# Team Name: AI Learning Lab 
 
-## About the Project
-
-## Goals
-The project aims to create a machine learning model that predicts whether users will answer questions correctly.
+## Goal
+Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
 
 ## Background
 
@@ -108,10 +106,10 @@ The project aims to create a machine learning model that predicts whether users 
 - Does the number of lectures a user watch impact their accuracy?
 
 ## Project Steps
-### Acquire
+### 1. Acquire
 Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-prediction/data). The data is stored in three separate files: lectures.csv, questions.csv, and train.csv. The primary dataset is train.csv, which has 100+ million user interactions from 390,000+ users. We used a random sample of 100K users for our analysis. The original 10 features describe the type of question, the time it took to answer, and whether the user’s response was correct.
 
-### Prepare
+### 2. Prepare
 **Missing Values**
 - Filled missing boolean values in `question_had_explanation` with False. Missing values indicated that the question did not have an explanation or the user viewed a lecture.
 - Filled missing values in `prior_question_elapsed_time` with 0. Missing values indicated that a user viewed a lecture before answering the first question in a bundle of questions.
@@ -126,7 +124,7 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 **Preprocessing**
 - Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
 
-### Explore
+### 3. Explore
 - Used scatterplots and histograms to visualize interactions between features and the target variable.
 - Performed hypothesis tests to find statistically significant relationships between features.
 
@@ -165,59 +163,34 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 > Results: With a p-value less than alpha, and t less than 0, we reject the null hypothesis.
 > -	If users with above-average accuracy answer questions (difficult and otherwise) more quickly than other users, then they may be more prepared for the content.
 
-**Feature Selection**
-- Used SelectKBest to select the top 5 features:
-
-| feature                             | rank |
-| :---------------------------------  |  :-- |
-| `mean_container_part_accuracy`      |   1  |
-| `user_acc_mean`                     |   2  |
-| `mean_task_accuracy`                |   3  |
-| `user_lectures_running_total_scaled`|   4  |
-| `mean_content_accuracy`             |   5  |
-
-- Used Recursive Feature Elimination to select the top 5 features:
-
-| feature                             | rank |
-| :---------------------------------  |  :-- |
-| `mean_container_part_accuracy`      |   1  |
-| `mean_content_accuracy`             |   2  |
-| `mean_bundle_accuracy`              |   3  |
-| `user_acc_mean`                     |   4  |
-| `mean_content_accuracy`             |   5  |
-
-- The 3 features that both lists had in common.
-> 1. mean_container_part_accuracy
-> 2. user_acc_mean
-> 3. mean_content_accuracy
-
-### Model
+### 4. Model
 First, we created a baseline model was to compare our model performances. The baseline is the most common outcome from the training dataset, answered correctly = 1. Baseline accuracy is 50%. This means that a user will get an answer correct 50% of the time.
 Models evaluated on train, validate, and the test set were:
 - Logistic Regression
 - Random Forest
-- Gradient Boost
+- LGBM
 
 
 ### Final Model
-Our Random Forest was the best performing model, with an AUC score of .692. AUC is a measure of True Positives and False Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicted a student responded to a question correctly when their answer was incorrect. An AUC score ranges between 0 and 1, where the higher the number, the more accurate a classification model is.
+Our [LGBM model](https://lightgbm.readthedocs.io/en/latest/Features.html) performed the best, with an AUC score of .744. AUC is a measure of True Positives and False Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicted a student responded to a question correctly when their answer was incorrect. An AUC score ranges between 0 and 1, where the higher the number, the more accurate a classification model is.
 
-> A Random Forest algorithm creates many individual decision trees (models) and combines them to produce a predictive model.
+> "Gradient boosting algorithm sequentially combines weak learners (decision tree) in way that each new tree fits to the residuals from the previous step so that the model improves. The final model aggregates the results from each step and a strong learner is achieved."[source](https://towardsdatascience.com/gradient-boosted-decision-trees-explained-9259bd8205af)
 
 <p align="center">
-<img src="./images/random_forest_visual.png"
-	title="random_forest" width="650" height="500">
+<img src="./images/bgdt.JPG"
+	title="Gradient Boosting Model" width="650" height="350">
 </p>
 	
-### Conclusions
+### 5. Conclusions
 #### What was the best model?
-- Random Forest: AUC score of .692
+- LightGBM: AUC score of .744
+- The LightGBM model surpassed the baseline by 0.24, which is a 47% improvement (which is a comparison of the difference between the scores divided by the baseline).
 
 ### Future Investigations
 #### What are your next steps?
 - Use this predictive model on Riiid's other educational programs.
-- Explore more features and different classification models like xgboost and lightlgbm.
-- Improve model to predict new student performance.
+- Explore more features and different classification models like xgboost.
+- Improve model to predict new student performance more effectively.
 
 ## How to Reproduce
 All files are reproducible and available for download and use.
