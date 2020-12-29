@@ -179,8 +179,8 @@ Our LGBM model performed the best, with an AUC score of .744. AUC is a measure o
 > The model begins by creating a decision tree that asks a series of questions, then makes predictions based on the responses. After the tree is complete, the model transfers what it learned from the first tree to a new tree. This cycle repeats many times. Each tree attempts to reduce the errors of its predecessor. The end result being a tree that vastly improves the predictive capability of the model.
 
 <p align="center">
-<img src="./images/random_forest_visual.png"
-	title="random_forest" width="650" height="500">
+<img src="./images/bgdt.JPG"
+	title="Gradient Boosting Model" width="650" height="500">
 </p>
 	
 ### Conclusions
