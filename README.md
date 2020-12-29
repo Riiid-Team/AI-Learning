@@ -176,12 +176,12 @@ Models evaluated on train, validate, and the test set were:
 ### Final Model
 Our LGBM model performed the best, with an AUC score of .744. AUC is a measure of True Positives and False Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicted a student responded to a question correctly when their answer was incorrect. An AUC score ranges between 0 and 1, where the higher the number, the more accurate a classification model is.
 
-> The model begins by creating a decision tree that asks a series of questions, then makes predictions based on the responses. After the tree is complete, the model transfers what it learned from the first tree to a new tree. This cycle repeats many times. Each tree attempts to reduce the errors of its predecessor. The end result being a tree that vastly improves the predictive capability of the model.
+> "Gradient boosting algorithm sequentially combines weak learners (decision tree) in way that each new tree fits to the residuals from the previous step so that the model improves. The final model aggregates the results from each step and a strong learner is achieved."[source](https://towardsdatascience.com/gradient-boosted-decision-trees-explained-9259bd8205af)
 
 <p align="center">
 <img src="./images/bgdt.JPG"
 	title="Gradient Boosting Model" width="650" height="350">
-</p> [source](https://towardsdatascience.com/gradient-boosted-decision-trees-explained-9259bd8205af)
+</p>
 	
 ### Conclusions
 #### What was the best model?
