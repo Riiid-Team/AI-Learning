@@ -1,8 +1,6 @@
 [![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/Riiid!%20Project.png "Header")](https://www.kaggle.com/c/riiid-test-answer-prediction/overview/description)
 
-# Riiid AIEd Challenge 2020
-
-## About the Project
+# Team Name: Ai Learning Lab 
 
 ## Goal
 Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
