@@ -180,8 +180,9 @@ Our LGBM model performed the best, with an AUC score of .744. AUC is a measure o
 
 <p align="center">
 <img src="./images/bgdt.JPG"
-	title="Gradient Boosting Model" width="650" height="450">
-</p>
+	title="Gradient Boosting Model" width="650" height="400">
+</p> 
+[source](https://towardsdatascience.com/gradient-boosted-decision-trees-explained-9259bd8205af)
 	
 ### Conclusions
 #### What was the best model?
