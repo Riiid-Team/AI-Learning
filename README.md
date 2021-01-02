@@ -8,15 +8,15 @@ Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
 ## Background
 
 ### About Riiid Labs
-> “Riiid Labs, an AI solutions provider delivering creative disruption to the education market, empowers global education players to rethink traditional ways of learning leveraging AI. With a strong belief in equal opportunity in education, Riiid launched an AI tutor based on deep-learning algorithms in 2017 that attracted more than one million South Korean students. This year, the company released EdNet, the world’s largest open database for AI education containing more than 100 million student interactions.” [source](https://www.kaggle.com/c/riiid-test-answer-prediction/overview)
+“Riiid Labs, an AI solutions provider delivering creative disruption to the education market, empowers global education players to rethink traditional ways of learning leveraging AI. With a strong belief in equal opportunity in education, Riiid launched an AI tutor based on deep-learning algorithms in 2017 that attracted more than one million South Korean students. This year, the company released EdNet, the world’s largest open database for AI education containing more than 100 million student interactions.” [Source](https://www.kaggle.com/c/riiid-test-answer-prediction/overview)
 
 ### TOEIC (Test of English for International Communication)
 Our project focuses on improving Riiid's web/mobile platform that prepares student for the TOEIC. 
 
-The TOEIC Listening & Reading test is an objective test that features 200 questions with a two hour time limit.Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions). [source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
+The TOEIC Listening & Reading test is an objective test that features 200 questions with a two hour time limit. Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions). [Source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
 
 ### Riiid's Platform
-“Santa TOEIC is the AI-based web/mobile learning platform for the TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [source](https://www.riiid.co/en/product)
+“Santa TOEIC is the AI-based web/mobile learning platform for the TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [Source](https://www.riiid.co/en/product)
 
 </details>
 
