@@ -76,7 +76,6 @@ Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
 | user_lectures_running_total | The running total of lectures a user has watched at a given timestamp                       |
 | avg_user_q_time             | The average amount of time a user spends on a question                                      |
 | mean_bundle_accuracy        | The average accuracy of a bundle of questions                                               |
-| mean_container_part_accuracy| The average accuracy of a bundle of questions for a specific part of the TOEIC test         |
 | mean_content_accuracy       | The number of questions a user answered correctly divided by all questions they've answered in different content/topics|
 | mean_tagcount_accuracy      | The number of tags linked to a question                                                     |
 | mean_tags_accuracy          | The average accuracy for questions that share the same number of tags                       |
