@@ -12,12 +12,14 @@ Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
 
 <details>
   <summary>More Info:  Click to Expand </summary>
- 
-### Education Platform: Santa TOEIC (Test of English for International Communication)
-> “Santa TOEIC is the AI-based web/mobile learning platform for TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [source](https://www.riiid.co/en/product)
 
-### TOEIC: Listening and Reading
-> “The TOEIC Listening & Reading test is an objective test… There are 200 questions to answer in two hours in Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions).” [source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
+### TOEIC (Test of English for International Communication)
+Our project focuses on improving Riiid's web/mobile platform that prepares student for the TOEIC. 
+
+The TOEIC Listening & Reading test is an objective test that features 200 questions with a two hour time limit.Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions).[source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
+
+### Riiid's Platform
+“Santa TOEIC is the AI-based web/mobile learning platform for the TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [source](https://www.riiid.co/en/product)
 
 </details>
 
@@ -124,7 +126,7 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 - Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
 
 ### 3. Explore
-- Used scatterplots and histograms to visualize interactions between features and the target variable.
+- Used scatterplots, barplots, and histograms to visualize interactions between features and the target variable.
 - Performed hypothesis tests to find statistically significant relationships between features.
 
 #### Hypotheses
@@ -181,9 +183,23 @@ Our [LGBM model](https://lightgbm.readthedocs.io/en/latest/Features.html) perfor
 </p>
 	
 ### 5. Conclusions
+
+#### Key Findings
+- Performance decreases on incomplete sentences and narration.
+- Performance increases with explanations and visuals.
+- Lectures don't significantly impact performance.
+
 #### What was the best model?
 - LightGBM: AUC score of .744
 - The LightGBM model surpassed the baseline by 0.24, which is a 47% improvement (which is a comparison of the difference between the scores divided by the baseline).
+
+#### Recommendations
+- Offer more study material for difficult subjects
+- Revise lectures to strengthen understanding through context
+- Use model to tailor content to student's needs
+
+#### Expectation
+- Riiid's program will better prepare students for the TOEIC
 
 ### Future Investigations
 #### What are your next steps?
