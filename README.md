@@ -18,7 +18,9 @@ The TOEIC Listening & Reading test is an objective test that features 200 questi
 ### Riiid's Platform
 “Santa TOEIC is the AI-based web/mobile learning platform for the TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [Source](https://www.riiid.co/en/product)
 
-</details>
+<p align = "center">
+<img src=".gif">
+</p>
 
 ## Deliverables
 - [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
@@ -176,7 +178,7 @@ Our [LGBM model](https://lightgbm.readthedocs.io/en/latest/Features.html) perfor
 
 <p align="center">
 <img src="./images/bgdt.JPG"
-	title="Gradient Boosting Model" width="650" height="350">
+	title="Gradient Boosting Model" width="650" height="300">
 </p>
 	
 ### 5. Conclusions
@@ -211,14 +213,14 @@ All files are reproducible and available for download and use.
 - [ ] Run Final-Report.ipynb
 
 ## Contact Us 
-Daniella Bojado
+[Daniella Bojado](https://github.com/dbojado)
 - daniella.bojado@gmail.com 
 
-Samuel Davila
+[Samuel Davila](https://github.com/SamuelD-Data)
 - samuelrdavila@gmail.com
 
-Yongliang Shi
+[Yongliang Shi](https://github.com/Yongliang-Shi)
 - yongliang.michael.shi@gmail.com
 
-Christopher Logan Ortiz
+[Christopher Logan Ortiz](https://github.com/Promeos)
 - christopher.logan.ortiz@gmail.com
