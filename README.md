@@ -174,7 +174,7 @@ Models evaluated on train, validate, and the test set were:
 ### Final Model
 Our [LGBM model](https://lightgbm.readthedocs.io/en/latest/Features.html) performed the best, with an AUC score of .744. AUC is a measure of True Positives and False Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicted a student responded to a question correctly when their answer was incorrect. An AUC score ranges between 0 and 1, where the higher the number, the more accurate a classification model is.
 
-> "Gradient boosting algorithm sequentially combines weak learners (decision tree) in way that each new tree fits to the residuals from the previous step so that the model improves. The final model aggregates the results from each step and a strong learner is achieved."[source](https://towardsdatascience.com/gradient-boosted-decision-trees-explained-9259bd8205af)
+> "Gradient boosting algorithm sequentially combines weak learners (decision tree) in way that each new tree fits to the residuals from the previous step so that the model improves. The final model aggregates the results from each step and a strong learner is achieved."[Source](https://towardsdatascience.com/gradient-boosted-decision-trees-explained-9259bd8205af)
 
 <p align="center">
 <img src="./images/bgdt.JPG"
