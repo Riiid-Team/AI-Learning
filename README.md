@@ -1,6 +1,6 @@
 [![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/new_banner.png "Header")](https://www.kaggle.com/c/riiid-test-answer-prediction/overview/description)
 
-# Team Name: AI Learning Lab 
+# Group Name: AI Learning Team
 
 ## Goal
 Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
