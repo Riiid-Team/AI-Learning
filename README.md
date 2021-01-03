@@ -1,7 +1,8 @@
 [![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/new_banner.png "Header")](https://dardencapstone.com/)
 
-# Welcome!
+<p align = "center"> # Welcome!
 # We are the AI Learning Team
+</p>
 
 ## Goal
 Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
