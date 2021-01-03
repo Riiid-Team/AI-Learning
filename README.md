@@ -214,13 +214,10 @@ All files are reproducible and available for download and use.
 
 ## Contact Us 
 [Daniella Bojado](https://github.com/dbojado)
-- daniella.bojado@gmail.com 
 
 [Samuel Davila](https://github.com/SamuelD-Data)
-- samuelrdavila@gmail.com
 
 [Yongliang Shi](https://github.com/Yongliang-Shi)
-- yongliang.michael.shi@gmail.com
 
 [Christopher Logan Ortiz](https://github.com/Promeos)
-- christopher.logan.ortiz@gmail.com
+
