@@ -1,13 +1,8 @@
 [![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/new_banner.png "Header")](https://dardencapstone.com/)
-<html>
-<style>
-body {
-  font-size: 20px;
-<p align = "center"> <b> Welcome! We are the AI Learning Team &#128126; </b>
-</p>
-}
-</style>
-</html>
+
+<h2 align = "center"> <b> Welcome! We are the AI Learning Team &#128126; </b>
+</h2>
+
 ## Our Goal
 Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
 
