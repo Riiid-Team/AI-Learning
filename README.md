@@ -19,7 +19,7 @@ The TOEIC Listening & Reading test is an objective test that features 200 questi
 “Santa TOEIC is the AI-based web/mobile learning platform for the TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [Source](https://www.riiid.co/en/product)
 
 <p align = "center">
-<img src=".gif">
+<img src="https://github.com/Riiid-Team/Riiid-Project/blob/main/santa_toeic_questions.gif">
 </p>
 
 ## Deliverables
