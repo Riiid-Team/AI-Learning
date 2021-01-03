@@ -1,5 +1,5 @@
 [![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/new_banner.png "Header")](https://dardencapstone.com/)
-
+font-size: 20px;
 <p align = "center"> <b> Welcome! We are the AI Learning Team &#128126; </b>
 </p>
 
