@@ -1,4 +1,5 @@
 [![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/new_banner.png "Header")](https://dardencapstone.com/)
+<html>
 <style>
 body {
   font-size: 20px;
@@ -6,7 +7,7 @@ body {
 </p>
 }
 </style>
-
+</html>
 ## Our Goal
 Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
 
