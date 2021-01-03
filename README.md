@@ -1,4 +1,4 @@
-[![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/Riiid!%20Project.png "Header")](https://www.kaggle.com/c/riiid-test-answer-prediction/overview/description)
+[![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/new_banner.png "Header")](https://www.kaggle.com/c/riiid-test-answer-prediction/overview/description)
 
 # Team Name: AI Learning Lab 
 
