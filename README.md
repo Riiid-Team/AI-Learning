@@ -14,7 +14,7 @@ Our project focuses on increasing the effectiveness of Riiid’s AI tutoring web
 ### TOEIC (Test of English for International Communication)
 The TOEIC Listening & Reading test is an objective test that features 200 questions with a two hour time limit. Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions). [Source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
 
-### Riiid's Platform
+### Riiid's TOEIC Platform
 “Santa TOEIC is the AI-based web/mobile learning platform for the TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [Source](https://www.riiid.co/en/product)
 
 <p align = "center">
