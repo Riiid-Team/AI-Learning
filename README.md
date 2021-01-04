@@ -1,25 +1,28 @@
-[![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/Riiid!%20Project.png "Header")](https://www.kaggle.com/c/riiid-test-answer-prediction/overview/description)
+[![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/Ai_Learning_Team_Banner.png "Header")](https://dardencapstone.com/)
 
-# Team Name: AI Learning Lab 
+<h2 align = "center"> <b> Welcome! We are the AI Learning Team &#128126; </b>
+</h2>
 
-## Goal
-Increase the effectiveness of Riiid’s AI tutoring web/mobile platform.
+## Our Goal
+Our project focuses on increasing the effectiveness of Riiid’s AI tutoring web/mobile platform that prepares student for the TOEIC exam.
+
+![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/exe_summary.png)
+
 
 ## Background
 
 ### About Riiid Labs
-> “Riiid Labs, an AI solutions provider delivering creative disruption to the education market, empowers global education players to rethink traditional ways of learning leveraging AI. With a strong belief in equal opportunity in education, Riiid launched an AI tutor based on deep-learning algorithms in 2017 that attracted more than one million South Korean students. This year, the company released EdNet, the world’s largest open database for AI education containing more than 100 million student interactions.” [source](https://www.kaggle.com/c/riiid-test-answer-prediction/overview)
+“Riiid Labs, an AI solutions provider delivering creative disruption to the education market, empowers global education players to rethink traditional ways of learning leveraging AI. With a strong belief in equal opportunity in education, Riiid launched an AI tutor based on deep-learning algorithms in 2017 that attracted more than one million South Korean students. This year, the company released EdNet, the world’s largest open database for AI education containing more than 100 million student interactions.” [Source](https://www.kaggle.com/c/riiid-test-answer-prediction/overview)
 
-<details>
-  <summary>More Info:  Click to Expand </summary>
- 
-### Education Platform: Santa TOEIC (Test of English for International Communication)
-> “Santa TOEIC is the AI-based web/mobile learning platform for TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [source](https://www.riiid.co/en/product)
+### TOEIC (Test of English for International Communication)
+The TOEIC Listening & Reading test is an objective test that features 200 questions with a two hour time limit. Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions). [Source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
 
-### TOEIC: Listening and Reading
-> “The TOEIC Listening & Reading test is an objective test… There are 200 questions to answer in two hours in Listening (approximately 45 minutes, 100 questions) and Reading (75 minutes, 100 questions).” [source](https://www.iibc-global.org/english/toeic/test/lr/about/format.html)
+### Riiid's TOEIC Platform
+“Santa TOEIC is the AI-based web/mobile learning platform for the TOEIC. AI tutor provides a one-on-one curriculum, effectively increasing scores based on the essential questions and lectures for each user.” [Source](https://www.riiid.co/en/product)
 
-</details>
+<p align = "center">
+<img src="https://github.com/Riiid-Team/Riiid-Project/blob/main/santa_toeic_questions.gif">
+</p>
 
 ## Deliverables
 - [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
@@ -124,7 +127,7 @@ Data acquired from [Kaggle](https://www.kaggle.com/c/riiid-test-answer-predictio
 - Scaled `mean_timestamp_accuracy`, `mean_priortime_accuracy`, `user_lectured_running_total`, and `avg_user_q_time` using MinMaxScaler
 
 ### 3. Explore
-- Used scatterplots and histograms to visualize interactions between features and the target variable.
+- Used scatterplots, barplots, and histograms to visualize interactions between features and the target variable.
 - Performed hypothesis tests to find statistically significant relationships between features.
 
 #### Hypotheses
@@ -173,17 +176,31 @@ Models evaluated on train, validate, and the test set were:
 ### Final Model
 Our [LGBM model](https://lightgbm.readthedocs.io/en/latest/Features.html) performed the best, with an AUC score of .744. AUC is a measure of True Positives and False Positives. A True Positive means that our model predicted that a student answered a question correctly, and their response was correct. A False Positive means our model predicted a student responded to a question correctly when their answer was incorrect. An AUC score ranges between 0 and 1, where the higher the number, the more accurate a classification model is.
 
-> "Gradient boosting algorithm sequentially combines weak learners (decision tree) in way that each new tree fits to the residuals from the previous step so that the model improves. The final model aggregates the results from each step and a strong learner is achieved."[source](https://towardsdatascience.com/gradient-boosted-decision-trees-explained-9259bd8205af)
+> "Gradient boosting algorithm sequentially combines weak learners (decision tree) in way that each new tree fits to the residuals from the previous step so that the model improves. The final model aggregates the results from each step and a strong learner is achieved." [Source](https://towardsdatascience.com/gradient-boosted-decision-trees-explained-9259bd8205af)
 
 <p align="center">
 <img src="./images/bgdt.JPG"
-	title="Gradient Boosting Model" width="650" height="350">
+	title="Gradient Boosting Model" width="650" height="300">
 </p>
 	
 ### 5. Conclusions
+
+#### Key Findings
+- Performance decreases on incomplete sentences and narration.
+- Performance increases with explanations and visuals.
+- Lectures don't significantly impact performance.
+
 #### What was the best model?
 - LightGBM: AUC score of .744
 - The LightGBM model surpassed the baseline by 0.24, which is a 47% improvement (which is a comparison of the difference between the scores divided by the baseline).
+
+#### Recommendations
+- Offer more study material for difficult subjects
+- Revise lectures to strengthen understanding through context
+- Use model to tailor content to student's needs
+
+#### Expectation
+- Riiid's program will better prepare students for the TOEIC
 
 ### Future Investigations
 #### What are your next steps?
@@ -198,14 +215,11 @@ All files are reproducible and available for download and use.
 - [ ] Run Final-Report.ipynb
 
 ## Contact Us 
-Daniella Bojado
-- daniella.bojado@gmail.com 
+[Daniella Bojado](https://github.com/dbojado)
 
-Samuel Davila
-- samuelrdavila@gmail.com
+[Samuel Davila](https://github.com/SamuelD-Data)
 
-Yongliang Shi
-- yongliang.michael.shi@gmail.com
+[Yongliang Shi](https://github.com/Yongliang-Shi)
 
-Christopher Logan Ortiz
-- christopher.logan.ortiz@gmail.com
+[Christopher Logan Ortiz](https://github.com/Promeos)
+
