@@ -6,6 +6,9 @@
 ## Our Goal
 Our project focuses on increasing the effectiveness of Riiid’s AI tutoring web/mobile platform that prepares student for the TOEIC exam.
 
+![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/exe_summary.png)
+
+
 ## Background
 
 ### About Riiid Labs
