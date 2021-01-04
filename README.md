@@ -1,4 +1,4 @@
-[![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/new_banner.png "Header")](https://dardencapstone.com/)
+[![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/Ai%20Learning%20Team.png "Header")](https://dardencapstone.com/)
 
 <h2 align = "center"> <b> Welcome! We are the AI Learning Team &#128126; </b>
 </h2>
