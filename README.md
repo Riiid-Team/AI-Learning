@@ -181,7 +181,7 @@ Our [LGBM model](https://lightgbm.readthedocs.io/en/latest/Features.html) perfor
 	title="Gradient Boosting Model" width="650" height="300">
 </p>
 	
-### 5. Conclusions
+### 5. Conclusion
 
 #### Key Findings
 - Performance decreases on incomplete sentences and narration.
