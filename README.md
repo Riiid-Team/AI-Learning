@@ -4,7 +4,7 @@
 </h2>
 
 
-![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/exe_summary.png)
+![Header](https://github.com/Riiid-Team/Riiid-Project/blob/main/images/exe_summmary_slide.png)
 
 
 ## Background
