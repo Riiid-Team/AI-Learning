@@ -191,8 +191,8 @@ Our [LGBM model](https://lightgbm.readthedocs.io/en/latest/Features.html) perfor
 - The LightGBM model surpassed the baseline by 0.24, which is a 47% improvement (which is a comparison of the difference between the scores divided by the baseline).
 
 #### Recommendations
-- Offer more study material for difficult subjects
-- Revise lectures to strengthen understanding through context
+- Offer more study material for difficult subjects and to develop students' ability to understand english based on context clues when photos aren't available
+- Revise lectures to have a stronger impact over the course of students' studies
 - Use model to tailor content to student's needs
 
 #### Expectation
