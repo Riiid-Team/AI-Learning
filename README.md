@@ -31,7 +31,7 @@ The TOEIC Listening & Reading test is an objective test that features 200 questi
 ## Project Management 
 - [Trello Board](https://trello.com/b/HK21qlYW) 
 - [Capstone Standup](https://docs.google.com/document/d/1tSexQKQZE7XicJyN401ZG8SlkKxIRokE44qmFS5kDZI/edit?usp=sharing)
-- [Knowledge Share](https://docs.google.com/document/d/1W8FVh89gN6bMn85uHgqLIz50elTtU2H9-R7jwpOUBRw/edit?usp=sharing)
+- [Knowledge Share](https://docs.google.com/document/d/1W8FVh89gN6bMn85uHgqLIz50elTtU2H9-R7jwpOUBRw/edit?usp=sharing) 
 
 ## Data Dictionary
 
