@@ -25,8 +25,8 @@ The TOEIC Listening & Reading test is an objective test that features 200 questi
 ## Deliverables
 - [MVP Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/MVP.ipynb)
 - [Final Notebook](https://github.com/Riiid-Team/Riiid-Project/blob/main/Final-Report.ipynb)
+- [Video presentation](https://youtu.be/d2yLCUWKsPY)
 - [Slide Presentation](https://www.canva.com/design/DAESrRJRaro/vLbd1MMG-GG8HUCrbWu7gw/view?utm_content=DAESrRJRaro&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
-- Video presentation
 
 ## Project Management 
 - [Trello Board](https://trello.com/b/HK21qlYW) 
